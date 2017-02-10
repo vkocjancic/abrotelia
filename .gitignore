@@ -253,3 +253,6 @@ paket-files/
 
 #Desgin folder
 design/
+
+#Ignore data folder
+Abrotelia.Web/App_Data/
