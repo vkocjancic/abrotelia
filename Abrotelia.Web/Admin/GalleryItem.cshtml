@@ -1,0 +1,85 @@
+﻿@using Abrotelia.Web.Code.Repository
+@using Abrotelia.Web.Code.ViewModels
+@{
+    Layout = "~/Admin/_Layout.cshtml";
+    var id = Request.QueryString["id"];
+    var vmAuthors = VMAuthors.Load(new AuthorsRepository());
+    VMGalleryItem vm = null;
+    if (string.IsNullOrEmpty(id))
+    {
+        vm = new VMGalleryItem();
+        Page.Title = "Novo likovno delo";
+        vm.Title = Page.Title;
+    }
+    else
+    {
+        vm = VMGalleryItem.Load(id, new GalleryItemsRepository(), new AuthorsRepository());
+        if (null == vm)
+        {
+            //TODO: redirect to 404
+        }
+        Page.Title = $"Likovno delo - {vm.Title}";
+    }
+}
+<article itemprop="about" data-id="@vm.Id">
+    <form method="post" id="frmGalleryItemEdit">
+        <header class="page-header">
+            <h2><input type="text" name="pageHeader" value="@vm.Title" class="form-field" /></h2>
+        </header>
+        @helpers.RichEditorControls()
+        <div itemprop="articleBody">
+            <div id="editor" class="form-field">@Html.Raw(HttpUtility.HtmlDecode(vm.Description))</div>
+            <input type="hidden" name="galleryItemDescription" />
+        </div>
+        <div itemprop="image">
+            <label for="galleryItemUpload">Fotografija artikla:</label>
+            <input type="file" name="galleryItemUpload" id="fileUpload" />
+            @if (null != vm.ImageId)
+            {
+                <img id="picture" src="~/images/normal_@vm.ImageId.@((null == vm.ImageExtension) ? "jpg" : vm.ImageExtension)" alt="@vm.Title" />
+            }
+            else
+            {
+                <img id="picture" src="" alt="@vm.Title" />
+            }
+        </div>
+        <div itemprop="author">
+            <label for="galleryItemAuthor">Avtor:</label>
+            <select name="galleryItemAuthor">
+                @foreach (var author in vmAuthors.Items)
+                {
+                    <option value="@author.Id" @((vm.ItemAuthorId == author.Id) ? "selected" : "")>@author.FullName</option>
+                }
+            </select>
+        </div>
+        <div itemprop="dateCreated">
+            <label for="galleryItemProduced">Letnica:</label>
+            <input type="number" name="galleryItemProduced" min="1000" max="@DateTime.Today.Year" value='@((null == vm.Produced) ? "" : vm.Produced.Value.ToString())' />
+        </div>
+        <div itemprop="width">
+            <label for="galleryItemWidth">Dolžina:</label>
+            <input type="number" name="galleryItemWidth" min="0" value='@((null == vm.Width) ? "" : vm.Width.Value.ToString())' />&nbsp;cm
+        </div>
+        <div itemprop="height">
+            <label for="galleryItemHeight">Višina:</label>
+            <input type="number" name="galleryItemHeight" min="0" value='@((null == vm.Height) ? "" : vm.Height.Value.ToString())' />&nbsp;cm
+        </div>
+        <div itemprop="genre">
+            <label for="galleryItemTechniques">Tehnike:</label>
+            <input type="text" name="galleryItemTechniques" value="@vm.TechniquesDisplay" />
+        </div>
+        <div itemprop="version">
+            <label for="galleryItemEra">Obdobje:</label>
+            <input type="text" name="galleryItemEra" value="@vm.Era" />
+        </div>
+        <div itemprop="price">
+            <label for="galleryItemPrice">Cena:</label>
+            <input type="number" name="galleryItemPrice" min="0.00" step="any" value='@((null == vm.Price) ? "" : vm.Price.Value.ToString("F2").Replace(",", "."))' />&nbsp;&euro;
+        </div>
+        <button type="submit" class="btn btn-primary btn-success">
+            <span class="glyphicon glyphicon-floppy-save" style="vertical-align:middle"></span> Shrani
+        </button>
+        @AntiForgery.GetHtml()
+        <div class="alert"></div>
+    </form>
+</article>

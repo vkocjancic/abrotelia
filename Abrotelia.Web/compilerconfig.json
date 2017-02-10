@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "Content/admin.css",
+    "inputFile": "Content/admin.less"
+  },
+  {
+    "outputFile": "Themes/default/site.css",
+    "inputFile": "Themes/default/site.less"
+  },
+  {
+    "outputFile": "Scripts/site.es5.js",
+    "inputFile": "Scripts/site.js"
+  }
+]

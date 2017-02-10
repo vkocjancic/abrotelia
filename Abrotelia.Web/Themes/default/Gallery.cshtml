@@ -1,0 +1,38 @@
+﻿@using Abrotelia.Web.Code.Common;
+@using Abrotelia.Web.Code.Repository
+@using Abrotelia.Web.Code.ViewModels
+@{ 
+    Page.Title = "Galerija";
+    VMGalleryItems vmResults = null;
+    VMGalleryItems vmFeatured = null;
+    var resultsHeader = "Vsi artikli";
+    var query = Model as string;
+    if (Request.HttpMethod == "POST") {
+        query = Request.Form["query"];
+    }
+    if (!string.IsNullOrWhiteSpace(query))
+    {
+        vmResults = VMGalleryItems.Load(HttpUtility.HtmlEncode(query), new GalleryItemsRepository(), new AuthorsRepository());
+        resultsHeader = "Najdeni artikli";
+    }
+    else
+    {
+        vmResults = VMGalleryItems.Load(new GalleryItemsRepository(), new AuthorsRepository());
+        vmFeatured = Site.GetFeaturedGalleryItems();
+    }
+}
+<div class="row">
+    <div class="container">
+        @galleryHelpers.Search(query)
+        @if (string.IsNullOrWhiteSpace(query))
+        {
+            <div id="featuredItems">
+                @galleryHelpers.DisplayItems("featured", "Predstavljeni artikli", vmFeatured)
+            </div>            
+        }
+        <div id="itemsList">
+            <h3>@resultsHeader</h3>
+            @galleryHelpers.DisplayAllItems(vmResults)
+        </div>
+    </div>
+</div>

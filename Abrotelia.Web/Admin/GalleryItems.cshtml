@@ -1,0 +1,59 @@
+﻿@using Abrotelia.Web.Code.Repository
+@using Abrotelia.Web.Code.ViewModels
+@{
+    Layout = "~/Admin/_Layout.cshtml";
+    Page.Title = "Likovna dela";
+    var vm = VMGalleryItems.Load(new GalleryItemsRepository(), new AuthorsRepository());
+}
+<section itemprop="articleSection">
+    <header class="page-header">
+        <h2>@Page.Title</h2>
+        <nav>
+            <ul>
+                <li><a href="~/Admin/GalleryItem.cshtml" class="btn btn-success">Dodaj</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="alert"></div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Naslov</th>
+                    <th>Slika</th>
+                    <th>Avtor slike</th>
+                    <th>Letnica</th>
+                    <th>Dimenzije</th>
+                    <th>Cena</th>
+                    <th>Avtor</th>
+                    <th>Posodobljeno</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in vm.Items)
+                {
+                    <tr itemprop="about" data-id="@item.Id">
+                        <td><a href="#" title="@item.FeaturedText" class="featured-item glyphicon @item.FeaturedClass"></a></td>
+                        <td><a href="~/Admin/GalleryItem.cshtml?id=@item.Id">@item.Title</a></td>
+                        <td><img id="picture" src="~/images/@((null == item.ImageId) ? "" : $"thumb_{item.ImageId.Value.ToString()}.{((null == item.ImageExtension) ? "jpg" : item.ImageExtension)}")" alt="@item.Title" /></td>
+                        <td>@item.ItemAuthorFullName</td>
+                        <td>@((null == item.Produced) ? "" : item.Produced.Value.ToString())</td>
+                        <td>@item.SizeDisplay</td>
+                        <td>@((null == item.Price) ? "" : item.Price.Value.ToString("C"))</td>
+                        <td>@item.Author</td>
+                        <td>@item.Updated</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-danger action-delete-galleryitem" title="Briši">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @AntiForgery.GetHtml()
+        <div class="alert"></div>
+    </div>
+</section>

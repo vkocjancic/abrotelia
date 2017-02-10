@@ -1,0 +1,39 @@
+﻿@using Abrotelia.Web.Code.Repository
+@using Abrotelia.Web.Code.ViewModels
+@{
+    Layout = "~/Admin/_Layout.cshtml";
+    var authorId = Request.QueryString["id"];
+    VMAuthor vm = null;
+    if (string.IsNullOrEmpty(authorId))
+    {
+        vm = new VMAuthor();
+        Page.Title = "Nov avtor";
+        vm.FullName = "Nov avtor";
+    }
+    else
+    {
+        vm = VMAuthor.Load(authorId, new AuthorsRepository());
+        if (null == vm)
+        {
+            //TODO: redirect to 404
+        }
+        Page.Title = $"Avtor - {vm.FullName}";
+    }
+}
+<article itemprop="author" data-id="@vm.Id">
+    <form method="post" id="frmAuthorEdit">
+        <header class="page-header">
+            <h2><input type="text" name="pageHeader" value="@vm.FullName" class="form-field" /></h2>
+        </header>
+        @helpers.RichEditorControls()
+        <div itemprop="articleBody">
+            <div id="editor" class="form-field">@Html.Raw(HttpUtility.HtmlDecode(vm.Description))</div>
+            <input type="hidden" name="authorDescription" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-success">
+            <span class="glyphicon glyphicon-floppy-save" style="vertical-align:middle"></span> Shrani
+        </button>
+        @AntiForgery.GetHtml()
+        <div class="alert"></div>
+    </form>
+</article>

@@ -1,0 +1,72 @@
+﻿@using Abrotelia.Web.Code.Common;
+<main id="content" role="banner" class="anart-main">
+    <div class="container">
+        <div class="row">
+            <span class="anart-logo pull-left" itemprop="logo"></span>
+            <p class="lead" itemprop="headline">@Site.Description</p>
+            <p class="lead last">
+                <a class="btn btn-outline-inverse btn-lg" href="/galerija/">Poglej v galerijo</a>
+            </p>
+        </div>
+    </div>
+</main>
+<article class="row" itemprop="articleBody">
+    <div class="container">
+        <section itemprop="articleSection" class="anart-section-main col-sm-4">
+            <h3 class="anart-svetovanje"><span>Svetovanje<br />in cenitve</span></h3>
+            <p>
+                Nasveti o prodaji, o trenutni tržni vrednosti in pravilni hrambi likovnega dela.
+            </p>
+            <p class="anart-btn">
+                <a href="/page/svetovanje-in-cenitve" class="btn btn-lg btn-outline-inverse">Cenik storitev</a>
+            </p>
+        </section>
+        <section itemprop="articleSection" class="anart-section-main col-sm-4">
+            <h3 class="anart-galerija"><span>Galerija<br />likovnih del</span></h3>
+            <p>
+                Vabljeni na prodajno razstavo likovnih del naše galerije.<br />&nbsp;
+            </p>
+            <p class="anart-btn">
+                <a href="/galerija/" class="btn btn-lg btn-outline-inverse">Ogled galerije</a>
+            </p>
+        </section>
+        <section itemprop="articleSection" class="anart-section-main col-sm-4">
+            <h3 class="anart-trznica"><span><br />Tržnica</span></h3>
+            <p>
+                Želite kupiti ali prodati likovno delo? Vabljeni na našo tržnico.
+            </p>
+            <p class="anart-btn">
+                <a href="/page/trznica" class="btn btn-lg btn-outline-inverse">Obisk tržnice</a>
+            </p>
+        </section>
+    </div>
+</article>
+
+<section class="row anart-row" itemprop="photo">
+    @galleryHelpers.DisplayItems("new", "Novo", Site.GetNewGalleryItems())
+</section>
+
+<section class="row anart-row" itemprop="photo">
+    @galleryHelpers.DisplayItems("featured", "Predstavljeni artikli", Site.GetFeaturedGalleryItems())
+</section>
+
+<article class="anart-news-subscription row" itemprop="articleBody">
+    <div class="container">
+        <div class="alert"></div>
+        <div class="thumbnail center well well-small text-center">
+            <h2>Prijavite se na e-novice</h2>
+            <p>E-novice vas bodo obveščale o tekočih dogodkih in novih likovnih delih.</p>
+            <form id="subscriptionForm">
+                <div class="anart-newsletter input-group col-md-4 col-md-offset-4">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                    <input type="email" id="newsEmail" name="newsEmail" placeholder="Vaš naslov elektronske pošte">
+                </div>
+                <br />
+                <button type="submit" value="" class="btn btn-large btn-outline-inverse btn-outline-filled">
+                    Prijavite se zdaj!
+                </button>
+                @AntiForgery.GetHtml()
+            </form>
+        </div>
+    </div>
+</article>

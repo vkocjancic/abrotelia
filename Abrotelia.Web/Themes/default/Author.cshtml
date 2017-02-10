@@ -1,0 +1,21 @@
+﻿@using Abrotelia.Web.Code.Repository
+@using Abrotelia.Web.Code.ViewModels
+@{ 
+    var author = Model as VMAuthor;
+    var vmResults = VMGalleryItems.LoadByAuthor(author, new GalleryItemsRepository());
+}
+<div class="row">
+    <div class="container">
+        @galleryHelpers.Search(author.FullName)
+        <div id="authorDetails" itemscope itemtype="http://schema.org/Product">
+            <h3 itemprop="author">@author.FullName</h3>
+            <article itemprop="description">
+                @Html.Raw(HttpUtility.HtmlDecode(author.Description))
+            </article>
+        </div>
+        <div id="itemsList" itemprop="offers">
+            <h3>Avtorjeva dela</h3>
+            @galleryHelpers.DisplayAllItems(vmResults)
+        </div>
+    </div>
+</div>

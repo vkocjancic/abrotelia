@@ -1,0 +1,36 @@
+﻿@using Abrotelia.Web.Code.Repository
+@using Abrotelia.Web.Code.ViewModels
+@{
+    var item = Model as VMGalleryItem;
+    var vmResults = VMGalleryItems.LoadByAuthor(item.ItemAuthorId, new GalleryItemsRepository(), new AuthorsRepository());
+    var itemToRemove = vmResults.Items.FirstOrDefault(i => i.Id == item.Id);
+    if (null != itemToRemove)
+    {
+        vmResults.Items.Remove(itemToRemove);
+    }
+}
+<div class="row">
+    <div class="container">
+        @galleryHelpers.Search(item.Title)
+        <div id="gallersItemDetails" class="anart-gallery-item" itemscope itemtype="http://schema.org/Product">
+            <h3 itemprop="name">@item.Title</h3>
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <img src="/images/normal_@item.ImageId.@((null == item.ImageExtension) ? "jpg" : item.ImageExtension)"
+                         alt="@item.Title" itemprop="image" />
+                </div>
+                <article class="pull-left" itemprop="description">
+                    @Html.Raw(HttpUtility.HtmlDecode(item.Description))
+                </article>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div id="itemsList" class="anart-gallery-items-list" itemprop="offers">
+            @if (0 < vmResults.Items.Count)
+            {
+                <h3>Ostala avtorjeva dela</h3>
+                @galleryHelpers.DisplayAllItems(vmResults)
+            }
+        </div>
+    </div>
+</div>

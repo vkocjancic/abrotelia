@@ -1,0 +1,46 @@
+﻿@using Abrotelia.Web.Code.Repository
+@using Abrotelia.Web.Code.ViewModels
+@{
+    Layout = "~/Admin/_Layout.cshtml";
+    Page.Title = "Avtorji";
+    var vm = VMAuthors.Load(new AuthorsRepository());
+}
+<section itemprop="articleSection">
+    <header class="page-header">
+        <h2>@Page.Title</h2>
+        <nav>
+            <ul>
+                <li><a href="~/Admin/Author.cshtml" class="btn btn-success">Dodaj</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="alert"></div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Ime in priimek</th>
+                    <th>Avtor</th>
+                    <th>Posodobljeno</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var author in vm.Items)
+                {
+                    <tr itemprop="author" data-id="@author.Id">
+                        <td><a href="~/Admin/Author.cshtml?id=@author.Id">@author.FullName</a></td>
+                        <td>@author.Author</td>
+                        <td>@author.Updated</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-danger action-delete-author" title="Briši">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @AntiForgery.GetHtml()
+    </div>
+</section>

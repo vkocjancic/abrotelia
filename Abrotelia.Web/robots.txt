@@ -1,0 +1,6 @@
+﻿User-agent: *
+Disallow: /Admin/
+Disallow: /Content/
+Disallow: /fonts/
+Disallow: /Scripts/
+Disallow: /Views/

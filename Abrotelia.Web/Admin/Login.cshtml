@@ -1,0 +1,67 @@
+﻿@{
+    Page.Title = "Prijava";
+    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+    if (Request.HttpMethod == "POST")
+    {
+        var username = Request.Form["inUsername"];
+        var password = Request.Form["inPassword"];
+        if ((!string.IsNullOrEmpty(username)) && (!string.IsNullOrEmpty(password)))
+        {
+            AntiForgery.Validate();
+            if (FormsAuthentication.Authenticate(username, password))
+            {
+                FormsAuthentication.RedirectFromLoginPage(username, false);
+            }
+        }
+        else if (!string.IsNullOrEmpty(Request["signout"]))
+        {
+            FormsAuthentication.SignOut();
+            Response.Redirect(Request["ReturnUrl"], true);
+        }
+    }
+}
+<!doctype html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8" />
+    <title>@Page.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="~/Content/admin.min.css" />
+</head>
+<body itemscope itemtype="http://schema.org/WebApplication">
+    <section itemprop="articleSection" class="container">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <form name="login" action="@Request.RawUrl" method="post" accept-charset="utf-8" class="form-signin">
+                <fieldset>
+                    <h1 class="text-center">Please, sign in</h1>
+                    @if (Request.HttpMethod == "POST")
+                    {
+                        <p>Nepravilno uporabniško ime ali geslo</p>
+                    }
+                    <div itemprop="name">
+                        <label for="inUsername">Uporabniško ime:</label>
+                        <input type="text" name="inUsername" id="inUsername" value="" class="form-control" />
+                    </div>
+                    <div>
+                        <label for="inPassword">Geslo:</label>
+                        <input type="password" name="inPassword" id="inPassword" value="" class="form-control" />
+                    </div>
+                    <div class="form-signin-btn">
+                        <input type="submit" value="Prijava" class="btn btn-lg btn-primary btn-block" />
+                    </div>
+                </fieldset>
+                @AntiForgery.GetHtml()
+            </form>
+        }
+        else
+        {
+            <h3>You are already signed in</h3>
+        }
+    </section>
+    <script type="text/javascript" src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+﻿@using Abrotelia.Web.Code.ViewModels
+@helper DisplayItems(string id, string title, VMGalleryItems items)
+{
+var maxItemsPerGroup = 4;
+if ((null != items) && (items.Items.Count > 0))
+{
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9">
+                    <h3>
+                        @title
+                    </h3>
+                </div>
+                <div class="col-sm-3">
+                    @if (items.Items.Count > maxItemsPerGroup)
+                    {
+                        <div class="controls pull-right hidden-xs">
+                            <a class="left glyphicon glyphicon-chevron-left btn anart-btn" href="#carousel-@id"
+                               data-slide="prev"></a><a class="right glyphicon glyphicon-chevron-right btn anart-btn" href="#carousel-@id"
+                                                        data-slide="next"></a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div id="carousel-@id" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @for (var cnGroup = 0; cnGroup < items.Items.Count; cnGroup += maxItemsPerGroup)
+                    {
+                        var itemsInGroup = Math.Min(items.Items.Count - cnGroup, maxItemsPerGroup);
+                        <div class="item @((0 == cnGroup) ? "active" : "")">
+                            <div>
+                                @for (var cnItem = 0; cnItem < itemsInGroup; cnItem++)
+                                {
+                                    @GalleryItemTemplate(items.Items[cnGroup + cnItem])
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+}
+}
+
+@helper DisplayAllItems(VMGalleryItems items)
+{
+    if ((null != items) && (items.Items.Count > 0))
+    {
+        foreach (var item in items.Items.OrderBy(i => i.Title))
+        {
+            @GalleryItemTemplate(item)
+        }
+    }
+}
+
+@helper GalleryItemTemplate(VMGalleryItem item)
+{
+    <div class="col-sm-3">
+        <div class="col-item" itemscope itemtype="http://schema.org/Product">
+            <a href="/delo/@item.PermaLink/@item.Id"><img src="/images/thumb_@item.ImageId.@((null == item.ImageExtension) ? "jpg" : item.ImageExtension)" alt="@item.Title" itemprop="image" /></a>
+            <ul class="info">
+                <li class="title"><a href="/delo/@item.PermaLink/@item.Id" itemprop="headline">@item.Title</a></li>
+                <li>Avtor: <a href="/avtor/@item.ItemAuthorPermaLink/@item.ItemAuthorId" itemprop="author">@item.ItemAuthorFullName</a></li>
+                @if (null == item.Produced)
+                {
+                    <li itemprop="dateCreated">Letinca: ni podana</li>
+                }
+                else
+                {
+                    <li>Letnica: <a href="/galerija/@item.Produced" itemprop="dateCreated">@item.Produced</a></li>
+                }
+                <li class="price" itemprop="price">@((null == item.Price) ? "" : item.Price.Value.ToString("C"))</li>
+                <li itemprop="width">Velikost: @item.SizeDisplay</li>
+                <li itemprop="genre">Tehnika: @item.TechniquesDisplay</li>
+            </ul>
+        </div>
+    </div>
+}
+
+@helper Search(string query)
+{
+    <form method="post" action="/galerija/">
+        <div id="gallerySearch" class="col-sm-12 input-group input-group-lg">
+            <input type="text" id="gallerySearchQuery" name="query" class="form-control input-lg" value="@query" data-provide="typeahead" autocomplete="off" />
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+    </form>
+}

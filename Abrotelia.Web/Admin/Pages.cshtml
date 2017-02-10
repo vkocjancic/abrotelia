@@ -1,0 +1,52 @@
+﻿@using Abrotelia.Web.Code.Repository
+@using Abrotelia.Web.Code.ViewModels
+@{
+    Layout = "~/Admin/_Layout.cshtml";
+    Page.Title = "Strani";
+    var vm = VMPages.Load(new PagesRepository());
+}
+<section itemprop="articleSection">
+    <header class="page-header">
+        <h2>@Page.Title</h2>
+        <nav>
+            <ul>
+                <li><a href="~/Admin/Page.cshtml" class="btn btn-success">Dodaj novo</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="alert"></div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Naslov</th>
+                    <th>Kategorija v glavi</th>
+                    <th>Kategorija v nogi</th>
+                    <th>Status</th>
+                    <th>Avtor</th>
+                    <th>Posodobljeno</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var page in vm.Items)
+                {
+                    <tr itemprop="blogPost" data-id="@page.Id">
+                        <td><a href="~/Admin/Page.cshtml?id=@page.Id">@page.Title</a></td>
+                        <td>@page.HeaderCategory</td>
+                        <td>@page.FooterCategory</td>
+                        <td>@page.PageStatus</td>
+                        <td>@page.Author</td>
+                        <td>@page.Updated</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-danger action-delete-page" title="Briši">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @AntiForgery.GetHtml()
+    </div>
+</section>

@@ -1,0 +1,7 @@
+﻿@using System.Web.Caching;
+@using Abrotelia.Web.Code.Common;
+@{
+    Layout = "~/Admin/_Layout.cshtml";
+    Page.Title = string.Format("{0} | {1}", "Dashboard", Site.Title);
+    RenderPage("Dashboard.cshtml");
+}

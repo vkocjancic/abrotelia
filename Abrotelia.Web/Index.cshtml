@@ -1,0 +1,71 @@
+﻿@using System.Web.Caching;
+@using Abrotelia.Web.Code.Common;
+@{
+    Layout = "~/Themes/" + Site.Theme + "/_Layout.cshtml";
+    var dateLastModified = DateTime.MinValue;
+
+    if (Site.IsGalleryPage)
+    {
+        @RenderPage("~/themes/" + Site.Theme + "/Gallery.cshtml", Site.GalleryQuery)
+    }
+    else if (Site.IsAuthorPage)
+    {
+        var author = Site.CurrentAuthor;
+        if (null == author)
+        {
+            @RenderPage("~/themes/" + Site.Theme + "/Gallery.cshtml")
+        }
+        else
+        {
+            Page.Title = string.Format("{0} | {1}", author.FullName, Site.Title);
+            Page.Description = author.MetaDescription;
+            dateLastModified = author.Updated;
+            @RenderPage("~/themes/" + Site.Theme + "/Author.cshtml", author)
+        }
+    }
+    else if (Site.IsGalleryItemPage)
+    {
+        var item = Site.CurrentGalleryItem;
+        if (null == item)
+        {
+            @RenderPage("~/themes/" + Site.Theme + "/Gallery.cshtml")
+        }
+        else
+        {
+            Page.Title = string.Format("{0} | {1}", item.Title, Site.Title);
+            Page.Description = item.MetaDescription;
+            dateLastModified = item.Updated;
+            @RenderPage("~/themes/" + Site.Theme + "/GalleryItem.cshtml", item)
+        }
+    }
+    else
+    {
+        var page = Site.CurrentPage;
+        if (null == page)
+        {
+            @RenderPage("~/themes/" + Site.Theme + "/Home.cshtml")
+        }
+        else
+        {
+
+            Page.Title = string.Format("{0} | {1}", page.Title, Site.Title);
+            Page.Description = page.MetaDescription;
+            dateLastModified = page.Updated;
+            @RenderPage("~/themes/" + Site.Theme + "/Page.cshtml", page)
+        }
+    }
+    @AntiForgery.GetHtml()
+
+
+    if (!Request.IsLocal && !User.Identity.IsAuthenticated)
+    {
+        Response.Cache.AppendCacheExtension("max-age=0");
+        Response.Cache.SetValidUntilExpires(true);
+        Response.Cache.SetCacheability(HttpCacheability.ServerAndPrivate);
+        Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/")));
+        Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/scripts")));
+        Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/Content")));
+        Response.AddCacheDependency(new CacheDependency(Server.MapPath("~/Themes/" + Site.Theme)));
+        Site.SetConditionalGetHeaders(dateLastModified.ToLocalTime(), Context);
+    }
+}

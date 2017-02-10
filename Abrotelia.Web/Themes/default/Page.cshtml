@@ -1,0 +1,11 @@
+﻿<div class="container">
+    <article data-id="@Model.Id" itemscope itemtype="http://schema.org/WebPage" itemprop="articleBody">
+        <header itemprop="headline name">
+            <h1>@Model.Title</h1>
+        </header>
+
+        <section itemprop="articleSection">
+            @Html.Raw(HttpUtility.HtmlDecode(Model.Content))
+        </section>
+    </article>
+</div>

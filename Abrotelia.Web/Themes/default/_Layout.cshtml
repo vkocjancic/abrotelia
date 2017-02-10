@@ -1,0 +1,74 @@
+﻿@using Abrotelia.Web.Code.Common;
+<!doctype html>
+<html lang="sl">
+<head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8" />
+    <title>@Page.Title</title>
+    <meta name="description" content="@Page.Description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+    <meta name="application-name" content="@Site.Title" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+
+    <meta property="og:title" content="@Page.Title" />
+    <meta property="og:image" content="@Site.Image" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@(Request.Url.Scheme +"://" + Request.Url.Authority + Request.RawUrl)" />
+
+    <link href="@Site.FingerPrint("/Content/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Site.FingerPrint("/Content/bootstrap-theme.min.css")" rel="stylesheet" />
+    <link href="@Site.FingerPrint("/Themes/" + Site.Theme +"/site.min.css")" rel="stylesheet" />
+    <link href="@Site.FingerPrint("/favicon.ico")" rel="shortcut icon" />
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+
+    <header role="banner" class="navbar-wrapper">
+        <div class="container-fluid">
+            <nav class="anart-navbar navbar navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed navbar-right" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/" title="@Site.Title">@Site.Title</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/page/svetovanje-in-cenitve" title="Svetovanje in cenitve">Svetovanje in cenitve</a></li>
+                            <li><a href="/galerija/" title="Galerija">Galerija</a></li>
+                            <li><a href="/page/trznica" title="Tržnica">Tržnica</a></li>
+                            <li><a href="/page/kontakt" title="Kontakt">Kontakt</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div role="main">
+        @RenderBody()
+    </div>
+
+    <footer role="contentinfo" itemscope itemtype="http://schema.org/Person" class="anart-footer">
+        <div class="container">
+            <div class="row">
+                <span class="col-md-6">Copyright &copy; @DateTime.Now.Year <a href="/" itemprop="url name">@Site.Copyright</a></span>
+                <nav class="col-md-6">
+                    <ul>
+                        <li><a href="/page/pravno-obvestilo">Pravno obvestilo</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="@Site.FingerPrint("/Scripts/jquery-1.9.1.min.js")"></script>
+    <script type="text/javascript" src="@Site.FingerPrint("/Scripts/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@Site.FingerPrint("/Scripts/bootstrap3-typeahead.min.js")"></script>
+    <script type="text/javascript" src="@Site.FingerPrint("/Scripts/site.es5.min.js")"></script>
+</body>
+</html>
+
+

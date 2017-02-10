@@ -1,0 +1,45 @@
+﻿@using Abrotelia.Web.Code.Repository
+@using Abrotelia.Web.Code.ViewModels
+@{
+    Layout = "~/Admin/_Layout.cshtml";
+    Page.Title = "Prijave na e-novice";
+    var vm = VMNewsSubscriptions.Load(new NewsSubscriptionsRepository());
+}
+<section itemprop="articleSection">
+    <header class="page-header">
+        <h2>@Page.Title</h2>
+        <nav>
+            <ul>
+                <li><a href="#" class="btn btn-success">Dodaj</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="alert"></div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>E-pošta</th>
+                    <th>Vneseno</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in vm.Items)
+                {
+                    <tr itemprop="email" data-id="@item.Id">
+                        <td>@item.Email</td>
+                        <td>@item.Updated</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-danger action-delete-newssubscription" title="Briši">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @AntiForgery.GetHtml()
+        <div class="alert"></div>
+    </div>
+</section>
