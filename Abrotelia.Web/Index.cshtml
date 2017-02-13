@@ -3,9 +3,11 @@
 @{
     Layout = "~/Themes/" + Site.Theme + "/_Layout.cshtml";
     var dateLastModified = DateTime.MinValue;
+    Page.Title = $"{Site.Title} | {Site.Description}";
 
     if (Site.IsGalleryPage)
     {
+        Page.Title = $"Galerija | {Site.Title}";
         @RenderPage("~/themes/" + Site.Theme + "/Gallery.cshtml", Site.GalleryQuery)
     }
     else if (Site.IsAuthorPage)
@@ -13,11 +15,12 @@
         var author = Site.CurrentAuthor;
         if (null == author)
         {
+            Page.Title = $"Galerija | {Site.Title}";
             @RenderPage("~/themes/" + Site.Theme + "/Gallery.cshtml")
         }
         else
         {
-            Page.Title = string.Format("{0} | {1}", author.FullName, Site.Title);
+            Page.Title = $"{author.FullName} | {Site.Title}";
             Page.Description = author.MetaDescription;
             dateLastModified = author.Updated;
             @RenderPage("~/themes/" + Site.Theme + "/Author.cshtml", author)
@@ -28,11 +31,12 @@
         var item = Site.CurrentGalleryItem;
         if (null == item)
         {
+            Page.Title = $"Galerija | {Site.Title}";
             @RenderPage("~/themes/" + Site.Theme + "/Gallery.cshtml")
         }
         else
         {
-            Page.Title = string.Format("{0} | {1}", item.Title, Site.Title);
+            Page.Title = $"{item.Title} | {Site.Title}";
             Page.Description = item.MetaDescription;
             dateLastModified = item.Updated;
             @RenderPage("~/themes/" + Site.Theme + "/GalleryItem.cshtml", item)
@@ -48,7 +52,7 @@
         else
         {
 
-            Page.Title = string.Format("{0} | {1}", page.Title, Site.Title);
+            Page.Title = $"{page.Title} | {Site.Title}";
             Page.Description = page.MetaDescription;
             dateLastModified = page.Updated;
             @RenderPage("~/themes/" + Site.Theme + "/Page.cshtml", page)
