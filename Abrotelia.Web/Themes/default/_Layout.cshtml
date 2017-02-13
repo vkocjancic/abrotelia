@@ -11,7 +11,7 @@
     <meta name="msapplication-TileColor" content="#ffffff" />
 
     <meta property="og:title" content="@Page.Title" />
-    <meta property="og:image" content="@Site.Image" />
+    <meta property="og:image" content="@(Request.Url.Scheme +"://" + Request.Url.Authority + @Site.Image)" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="@(Request.Url.Scheme +"://" + Request.Url.Authority + Request.RawUrl)" />
 
