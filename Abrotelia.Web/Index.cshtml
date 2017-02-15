@@ -4,6 +4,7 @@
     Layout = "~/Themes/" + Site.Theme + "/_Layout.cshtml";
     var dateLastModified = DateTime.MinValue;
     Page.Title = $"{Site.Title} | {Site.Description}";
+    Page.Description = Site.MetaDescription;
 
     if (Site.IsGalleryPage)
     {

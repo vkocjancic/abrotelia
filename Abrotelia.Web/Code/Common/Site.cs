@@ -19,6 +19,7 @@ namespace Abrotelia.Web.Code.Common
         public static string Copyright { get; private set; }
         public static string Description { get; private set; }
         public static string Image { get; private set; }
+        public static string MetaDescription { get; private set; }
         public static string Title { get; private set; }
         public static string Theme { get; private set; }
 
@@ -106,6 +107,7 @@ namespace Abrotelia.Web.Code.Common
             Copyright = ConfigurationManager.AppSettings.Get("site:copyright");
             Description = ConfigurationManager.AppSettings.Get("site:description");
             Image = ConfigurationManager.AppSettings.Get("site:image");
+            MetaDescription = ConfigurationManager.AppSettings.Get("site:metadescription");
             Theme = ConfigurationManager.AppSettings.Get("site:theme");
             Title = ConfigurationManager.AppSettings.Get("site:title");
         }
