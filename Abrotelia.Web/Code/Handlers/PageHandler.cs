@@ -8,44 +8,55 @@ using System.Web.Hosting;
 
 namespace Abrotelia.Web.Code.Handlers
 {
-    public class PageHandler : IHttpHandler
+    public class PageHandler : HttpHandlerBase
     {
-        /// <summary>
-        /// You will need to configure this handler in the Web.config file of your 
-        /// web and register it with IIS before being able to use it. For more information
-        /// see the following link: http://go.microsoft.com/?linkid=8101007
-        /// </summary>
-        #region IHttpHandler implementation
 
-        public void ProcessRequest(HttpContext context)
-        {
-            AntiForgery.Validate();
-            if (!context.User.Identity.IsAuthenticated)
-            {
-                throw new HttpException(403, "No access");
-            }
-            var mode = context.Request.QueryString["mode"];
-            var id = context.Request.Form["id"];
-            if ("save" == mode)
-            {
-                EditPage(
-                    id,
-                    context.Request["title"],
-                    context.Request["content"],
-                    context.Request["headerCategory"],
-                    context.Request["footerCategory"],
-                    context.User.Identity.Name,
-                    new PagesRepository());
-            }
-            else if ("delete" == mode)
-            {
-                DeletePage(id, new PagesRepository());
-            }
-        }
+        #region Constructors
 
-        public bool IsReusable
+        public PageHandler() : base(typeof(PageHandler)) { }
+
+        #endregion
+
+        #region HttpHandlerBase implementation
+
+        public override void ProcessRequest(HttpContext context)
         {
-            get { return false; }
+            try
+            {
+                m_log.Info("Processing request invoked");
+                AntiForgery.Validate();
+                m_log.Debug("AntiForgery check OK");
+                if (!context.User.Identity.IsAuthenticated)
+                {
+                    m_log.Error("User not authenticated");
+                    throw new HttpException(403, "No access");
+                }
+                var mode = context.Request.QueryString["mode"];
+                var id = context.Request.Form["id"];
+                m_log.Debug($"Page id: {id}; Mode: {mode}");
+                if ("save" == mode)
+                {
+                    EditPage(
+                        id,
+                        context.Request["title"],
+                        context.Request["content"],
+                        context.Request["headerCategory"],
+                        context.Request["footerCategory"],
+                        context.User.Identity.Name,
+                        new PagesRepository());
+                    m_log.Info("Page saved");
+                }
+                else if ("delete" == mode)
+                {
+                    DeletePage(id, new PagesRepository());
+                    m_log.Info("Page deleted");
+                }
+            }
+            catch (Exception ex)
+            {
+                m_log.Fatal(ex, $"{ex.Message} {ex.StackTrace}");
+                throw new HttpException(500, "Internal server error");
+            }
         }
 
         #endregion

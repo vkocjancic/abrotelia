@@ -6,35 +6,43 @@ using System.Web.Helpers;
 
 namespace Abrotelia.Web.Code.Handlers
 {
-    public class NewsSubscriptionHandler : IHttpHandler
+    public class NewsSubscriptionHandler : HttpHandlerBase
     {
-        /// <summary>
-        /// You will need to configure this handler in the Web.config file of your 
-        /// web and register it with IIS before being able to use it. For more information
-        /// see the following link: http://go.microsoft.com/?linkid=8101007
-        /// </summary>
-        #region IHttpHandler Members
+        #region Constructors
 
-        public bool IsReusable
-        {
-            // Return false in case your Managed Handler cannot be reused for another request.
-            // Usually this would be false in case you have some state information preserved per request.
-            get { return false; }
-        }
+        public NewsSubscriptionHandler() : base(typeof(NewsSubscriptionHandler)) { }
 
-        public void ProcessRequest(HttpContext context)
+        #endregion
+
+        #region HttpHandlerBase implementation
+
+        public override void ProcessRequest(HttpContext context)
         {
-            AntiForgery.Validate();
-            var mode = context.Request.QueryString["mode"];
-            var email = context.Request.Form["email"];
-            var id = context.Request.Form["id"];
-            if ("save" == mode)
+            try
             {
-                AddNewsSubscription(email, new NewsSubscriptionsRepository());
+                m_log.Info($"ProcessRequest invoked for {context.Request.UserHostAddress}");
+                AntiForgery.Validate();
+                m_log.Debug($"AntiForgery check OK for {context.Request.UserHostAddress}");
+                var mode = context.Request.QueryString["mode"];
+                var email = context.Request.Form["email"];
+                var id = context.Request.Form["id"];
+                m_log.Debug($"Subscription id: {id}; Mode: {mode}; Email: {email} for {context.Request.UserHostAddress}");
+                if ("save" == mode)
+                {
+                    AddNewsSubscription(email, new NewsSubscriptionsRepository());
+                    m_log.Info($"Subscription added for {context.Request.UserHostAddress}");
+                }
+                else if ("delete" == mode)
+                {
+                    DeleteNewsSubscription(id, new NewsSubscriptionsRepository());
+                    m_log.Info($"Subscription deleted for {context.Request.UserHostAddress}");
+                }
             }
-            else if ("delete" == mode)
+            catch (Exception ex)
             {
-                DeleteNewsSubscription(id, new NewsSubscriptionsRepository());
+                m_log.Info($"Error occured handling request for {context.Request.UserHostAddress}");
+                m_log.Fatal(ex, $"{ex.Message} {ex.StackTrace}");
+                throw new HttpException(500, "Internal server error");
             }
         }
 

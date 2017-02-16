@@ -48,7 +48,7 @@
             }
             showMessage(true, "Likovno delo je bil uspešno shranjeno");
             var picture = document.getElementById("picture");
-            picture.src = picture.src.split("?")[0] + "?id=" + data + "&size=normal";
+            picture.src = picture.src;
         })
         .fail(function (data) {
             if (data.status === 409) {

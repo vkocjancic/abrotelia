@@ -6,55 +6,65 @@ using System.Web.Helpers;
 
 namespace Abrotelia.Web.Code.Handlers
 {
-    public class GalleryItemHandler : IHttpHandler
+    public class GalleryItemHandler : HttpHandlerBase
     {
-        /// <summary>
-        /// You will need to configure this handler in the Web.config file of your 
-        /// web and register it with IIS before being able to use it. For more information
-        /// see the following link: http://go.microsoft.com/?linkid=8101007
-        /// </summary>
-        #region IHttpHandler Members
 
-        public bool IsReusable
-        {
-            // Return false in case your Managed Handler cannot be reused for another request.
-            // Usually this would be false in case you have some state information preserved per request.
-            get { return false; }
-        }
+        #region Constructors
 
-        public void ProcessRequest(HttpContext context)
+        public GalleryItemHandler() : base(typeof(GalleryItemHandler)) { }
+
+        #endregion
+
+        #region HttpHandlerBase implementation
+
+        public override void ProcessRequest(HttpContext context)
         {
-            AntiForgery.Validate();
-            if (!context.User.Identity.IsAuthenticated)
+            try
             {
-                throw new HttpException(403, "No access");
+                m_log.Info("Processing request invoked");
+                AntiForgery.Validate();
+                m_log.Debug("AntiForgery check OK");
+                if (!context.User.Identity.IsAuthenticated)
+                {
+                    m_log.Error("User not authenticated");
+                    throw new HttpException(403, "No access");
+                }
+                var mode = context.Request.QueryString["mode"];
+                var id = context.Request.Form["id"];
+                m_log.Debug($"Gallery item id: {id}; Mode: {mode}");
+                if ("save" == mode)
+                {
+                    EditGalleryItem(
+                        id,
+                        context.Request["pageHeader"],
+                        context.Request["description"],
+                        context.Request["galleryItemAuthor"],
+                        context.Request["galleryItemProduced"],
+                        context.Request["galleryItemTechniques"],
+                        context.Request["galleryItemEra"],
+                        context.Request["galleryItemPrice"],
+                        context.Request["galleryItemWidth"],
+                        context.Request["galleryItemHeight"],
+                        (context.Request.Files.Count > 0) ? context.Request.Files[0] : null,
+                        new GalleryItemsRepository()
+                    );
+                    m_log.Info("Gallery item saved");
+                }
+                else if ("delete" == mode)
+                {
+                    DeleteGalleryItem(id, new GalleryItemsRepository());
+                    m_log.Info("Gallery item deleted");
+                }
+                else if ("toggleFeatured" == mode)
+                {
+                    ToggleFeatured(id, new GalleryItemsRepository());
+                    m_log.Info("Gallery item featured flag toggled");
+                }
             }
-            var mode = context.Request.QueryString["mode"];
-            var id = context.Request.Form["id"];
-            if ("save" == mode)
+            catch (Exception ex)
             {
-                EditGalleryItem(
-                    id,
-                    context.Request["pageHeader"],
-                    context.Request["description"],
-                    context.Request["galleryItemAuthor"],
-                    context.Request["galleryItemProduced"],
-                    context.Request["galleryItemTechniques"],
-                    context.Request["galleryItemEra"],
-                    context.Request["galleryItemPrice"],
-                    context.Request["galleryItemWidth"],
-                    context.Request["galleryItemHeight"],
-                    (context.Request.Files.Count > 0) ? context.Request.Files[0] : null,
-                    new GalleryItemsRepository()
-                );
-            }
-            else if ("delete" == mode)
-            {
-                DeleteGalleryItem(id, new GalleryItemsRepository());
-            }
-            else if ("toggleFeatured" == mode)
-            {
-                ToggleFeatured(id, new GalleryItemsRepository());
+                m_log.Fatal(ex, $"{ex.Message} {ex.StackTrace}");
+                throw new HttpException(500, "Internal server error");
             }
         }
 
