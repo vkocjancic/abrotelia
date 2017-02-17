@@ -5,7 +5,7 @@ using System.Web;
 using Abrotelia.Web.Code.ViewModels;
 using Abrotelia.Web.Code.Adapter;
 using LiteDB;
-using Abrotelia.Web.Code.Persistence;
+using Abrotelia.Core.Data.Persistence;
 
 namespace Abrotelia.Web.Code.Repository
 {

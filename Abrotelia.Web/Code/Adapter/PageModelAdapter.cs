@@ -1,10 +1,6 @@
-﻿using Abrotelia.Web.Code.Common;
-using Abrotelia.Web.Code.Persistence;
+﻿using Abrotelia.Core.Data.Persistence;
+using Abrotelia.Web.Code.Common;
 using Abrotelia.Web.Code.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Abrotelia.Web.Code.Adapter
 {
@@ -23,7 +19,7 @@ namespace Abrotelia.Web.Code.Adapter
                 FooterCategory = modelView.FooterCategory,
                 HeaderCategory = modelView.HeaderCategory,
                 PageStatus = modelView.PageStatus,
-                PermaLink = PermalinkGenerator.GetSlug(modelView.Title),
+                PermaLink = PermalinkGenerator.GetSlug(modelView.Title).Replace("č", "c").Replace("š", "s").Replace("ž", "z"),
                 Title = modelView.Title,
                 Updated = modelView.Updated
             };

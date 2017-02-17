@@ -1,5 +1,5 @@
-﻿using Abrotelia.Web.Code.Adapter;
-using Abrotelia.Web.Code.Persistence;
+﻿using Abrotelia.Core.Data.Persistence;
+using Abrotelia.Web.Code.Adapter;
 using Abrotelia.Web.Code.ViewModels;
 using LiteDB;
 using System;

@@ -14,7 +14,7 @@ namespace Abrotelia.Web.Code.Common
         public static string GetSlug(string textToConvert)
         {
             var regexPermalink = new Regex(@"[^\w]+");
-            return regexPermalink.Replace(textToConvert, "-");
+            return regexPermalink.Replace(textToConvert, "-").ToLower();
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿using Abrotelia.Web.Code.Common;
+﻿using Abrotelia.Core.Common;
 using Abrotelia.Web.Code.Repository;
 using Abrotelia.Web.Code.ViewModels;
 using System;

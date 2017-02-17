@@ -1,4 +1,4 @@
-﻿using Abrotelia.Web.Code.Persistence;
+﻿using Abrotelia.Core.Data.Persistence;
 using Abrotelia.Web.Code.ViewModels;
 using System;
 using System.Collections.Generic;

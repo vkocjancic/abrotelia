@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Abrotelia.Web.Code.Common
+namespace Abrotelia.Core.Common
 {
     public enum PageStatus
     {

@@ -43,8 +43,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LiteDB, Version=2.0.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
-      <HintPath>..\packages\LiteDB.2.0.4\lib\net35\LiteDB.dll</HintPath>
+    <Reference Include="LiteDB, Version=3.0.1.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiteDB.3.0.1\lib\net35\LiteDB.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -179,7 +179,6 @@
     <Compile Include="Code\Handlers\GallerySearchHandler.cs" />
     <Compile Include="Code\Handlers\HttpHandlerBase.cs" />
     <Compile Include="Code\Handlers\NewsSubscriptionHandler.cs" />
-    <Compile Include="Code\Persistence\PMNewsSubscription.cs" />
     <Compile Include="Code\Repository\INewsSubscriptionsRepository.cs" />
     <Compile Include="Code\Repository\NewsSubscriptionsRepository.cs" />
     <Compile Include="Code\Search\GalleryItemSearch.cs" />
@@ -192,16 +191,12 @@
     <Compile Include="Code\Common\ImageManipulation\ImageResizerBase.cs" />
     <Compile Include="Code\Common\ImageManipulation\ImageResizerFactory.cs" />
     <Compile Include="Code\Common\ImageManipulation\JpegImageResizer.cs" />
-    <Compile Include="Code\Common\PageStatus.cs" />
     <Compile Include="Code\Common\PermalinkGenerator.cs" />
     <Compile Include="Code\Common\Site.cs" />
     <Compile Include="Code\Handlers\AuthorHandler.cs" />
     <Compile Include="Code\Handlers\GalleryItemHandler.cs" />
     <Compile Include="Code\Handlers\ImageHandler.cs" />
     <Compile Include="Code\Handlers\PageHandler.cs" />
-    <Compile Include="Code\Persistence\PMAuthor.cs" />
-    <Compile Include="Code\Persistence\PMGalleryItem.cs" />
-    <Compile Include="Code\Persistence\PMPage.cs" />
     <Compile Include="Code\Repository\AuthorsRepository.cs" />
     <Compile Include="Code\Repository\BaseRepository.cs" />
     <Compile Include="Code\Repository\GalleryItemsRepository.cs" />
@@ -254,6 +249,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Abrotelia.Core\Abrotelia.Core.csproj">
+      <Project>{2a591b52-5adb-4da6-b1d6-4585aa8c5a44}</Project>
+      <Name>Abrotelia.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

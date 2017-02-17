@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Abrotelia.Web.Code.ViewModels;
 using LiteDB;
 using Abrotelia.Web.Code.Adapter;
-using Abrotelia.Web.Code.Persistence;
 using System.IO;
 using Abrotelia.Web.Code.Common.ImageManipulation;
-using System.Web.Hosting;
+using Abrotelia.Core.Data.Persistence;
 
 namespace Abrotelia.Web.Code.Repository
 {
@@ -171,10 +168,10 @@ namespace Abrotelia.Web.Code.Repository
                         var dict = new Dictionary<string, BsonValue>();
                         dict.Add("extension", item.ImageExtension);
                         var path = $"{m_roNormalImagePath}/{item.ImageId.Value.ToString()}";
-                        db.FileStorage.Upload(path, ms);
+                        db.FileStorage.Upload(item.ImageId.Value.ToString(), path, ms);
                         db.FileStorage.SetMetadata(path, new BsonDocument(dict));
                         path = $"{m_roThumbsImagePath}/{item.ImageId.Value.ToString()}";
-                        db.FileStorage.Upload(path, msThumb);
+                        db.FileStorage.Upload(item.ImageId.Value.ToString(), path, msThumb);
                         db.FileStorage.SetMetadata(path, new BsonDocument(dict));
                     }
                 }

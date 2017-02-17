@@ -84,7 +84,7 @@ namespace Abrotelia.Web.Code.Common
                 if (!string.IsNullOrEmpty(slug))
                 {
                     var repository = new PagesRepository();
-                    return repository.GetBySlug(slug);
+                    return repository.GetBySlug(slug.ToLower());
                 }
                 return null;
             }

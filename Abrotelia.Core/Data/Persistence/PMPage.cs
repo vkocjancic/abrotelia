@@ -1,10 +1,10 @@
-﻿using Abrotelia.Web.Code.Common;
+﻿using Abrotelia.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Abrotelia.Web.Code.Persistence
+namespace Abrotelia.Core.Data.Persistence
 {
     public class PMPage
     {
