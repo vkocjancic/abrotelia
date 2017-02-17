@@ -36,7 +36,7 @@ namespace Abrotelia.Web.Code.ViewModels
                 {
                     return null;
                 }
-                return $"{Height.Value} x {Width.Value} cm";
+                return $"{Height.Value/10.0M} x {Width.Value/10.0M} cm";
             }
         }
 
