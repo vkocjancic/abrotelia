@@ -56,13 +56,13 @@
             <label for="galleryItemProduced">Letnica:</label>
             <input type="number" name="galleryItemProduced" min="1000" max="@DateTime.Today.Year" value='@((null == vm.Produced) ? "" : vm.Produced.Value.ToString())' />
         </div>
-        <div itemprop="width">
-            <label for="galleryItemWidth">Dolžina:</label>
-            <input type="number" name="galleryItemWidth" min="0" value='@((null == vm.Width) ? "" : vm.Width.Value.ToString())' />&nbsp;mm
-        </div>
         <div itemprop="height">
             <label for="galleryItemHeight">Višina:</label>
             <input type="number" name="galleryItemHeight" min="0" value='@((null == vm.Height) ? "" : vm.Height.Value.ToString())' />&nbsp;mm
+        </div>
+        <div itemprop="width">
+            <label for="galleryItemWidth">Dolžina:</label>
+            <input type="number" name="galleryItemWidth" min="0" value='@((null == vm.Width) ? "" : vm.Width.Value.ToString())' />&nbsp;mm
         </div>
         <div itemprop="genre">
             <label for="galleryItemTechniques">Tehnike:</label>
