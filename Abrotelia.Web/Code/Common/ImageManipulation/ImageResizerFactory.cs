@@ -9,13 +9,19 @@ namespace Abrotelia.Web.Code.Common.ImageManipulation
     public static class ImageResizerFactory
     {
 
+        #region Declarations
+
+        private static string[] JPEG_EXTENSIONS = { ".jpg", ".jpeg" };
+
+        #endregion
+
         #region Static methods
 
         public static MemoryStream CreateImage(byte[] imageContent, string extension)
         {
             MemoryStream ms = null;
             IImageResizer imageResizer = null;
-            if ((".jpg" == extension) || (".jpeg" == extension))
+            if (JPEG_EXTENSIONS.Any(e => e == extension.ToLower()))
             {
                 imageResizer = new JpegImageResizer();
             }
@@ -27,7 +33,7 @@ namespace Abrotelia.Web.Code.Common.ImageManipulation
         {
             MemoryStream ms = null;
             IImageResizer imageResizer = null;
-            if ((".jpg" == extension) || (".jpeg" == extension))
+            if (JPEG_EXTENSIONS.Any(e => e == extension.ToLower()))
             {
                 imageResizer = new JpegImageResizer();
             }
