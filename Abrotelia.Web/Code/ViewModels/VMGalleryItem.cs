@@ -82,6 +82,7 @@ namespace Abrotelia.Web.Code.ViewModels
             {
                 var author = repositoryAuthors.GetById(model.ItemAuthorId);
                 model.ItemAuthorFullName = author.FullName;
+                model.ItemAuthorPermaLink = author.PermaLink;
             }
             return model;
         }
