@@ -174,11 +174,11 @@ article,
   padding: 10px 16px;
 }
 .col-item {
-  border: solid 1px transparent;
+  border: solid 1px #ddd;
   border-radius: 3px 3px;
-  height: 18.5em;
+  height: 20.5em;
   padding: 15px;
-  margin: 5px;
+  margin: 15px 0;
   text-align: center;
 }
 .col-item:hover {
