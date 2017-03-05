@@ -165,13 +165,14 @@ namespace Abrotelia.Web.Code.Repository
                     using (var msThumb = ImageResizerFactory.CreateThumbnail(item.ImageContent, item.ImageExtension))
                     {
                         ms.Seek(0, SeekOrigin.Begin);
+                        msThumb.Seek(0, SeekOrigin.Begin);
                         var dict = new Dictionary<string, BsonValue>();
                         dict.Add("extension", item.ImageExtension);
                         var path = $"{m_roNormalImagePath}/{item.ImageId.Value.ToString()}";
-                        db.FileStorage.Upload(item.ImageId.Value.ToString(), path, ms);
+                        db.FileStorage.Upload(path, path, ms);
                         db.FileStorage.SetMetadata(path, new BsonDocument(dict));
                         path = $"{m_roThumbsImagePath}/{item.ImageId.Value.ToString()}";
-                        db.FileStorage.Upload(item.ImageId.Value.ToString(), path, msThumb);
+                        db.FileStorage.Upload(path, path, msThumb);
                         db.FileStorage.SetMetadata(path, new BsonDocument(dict));
                     }
                 }
