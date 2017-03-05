@@ -14,7 +14,7 @@ namespace Abrotelia.Web.Code.ViewModels
         public static VMGalleryItems Load(IGalleryItemsRepository repository, IAuthorsRepository repositoryAuthors)
         {
             var model = new VMGalleryItems();
-            model.Items = repository.GetAll();
+            model.Items = repository.GetAll().OrderBy(i => i.Title).ToList();
             foreach(var item in model.Items)
             {
                 if (!string.IsNullOrEmpty(item.ItemAuthorId))
