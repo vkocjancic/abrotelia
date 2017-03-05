@@ -19,7 +19,7 @@
                     <img src="/images/normal_@item.ImageId.@((null == item.ImageExtension) ? "jpg" : item.ImageExtension)"
                          alt="@item.Title" itemprop="image" />
                 </div>
-                <article class="pull-left anart-gallery-item-details" itemprop="description">
+                <article class="pull-left anart-gallery-item-details col-sm-5" itemprop="description">
                     @Html.Raw(HttpUtility.HtmlDecode(item.Description))
                     <ul class="info">
                         <li>Avtor: <a href="/avtor/@item.ItemAuthorPermaLink/@item.ItemAuthorId" itemprop="author">@item.ItemAuthorFullName</a></li>
