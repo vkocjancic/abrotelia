@@ -40,6 +40,7 @@
                             <li><a href="/page/svetovanje-in-cenitve" title="Svetovanje in cenitve">Svetovanje in cenitve</a></li>
                             <li><a href="/galerija/" title="Galerija">Galerija</a></li>
                             <li><a href="/page/trznica" title="Tržnica">Tržnica</a></li>
+                            <li><a href="/page/klub-ljubiteljev-umetnosti" title="Klub ljubiteljev umetnosti">Klub</a></li>
                             <li><a href="/page/kontakt" title="Kontakt">Kontakt</a></li>
                         </ul>
                     </div>
@@ -55,14 +56,26 @@
     <footer role="contentinfo" itemscope itemtype="http://schema.org/Person" class="anart-footer">
         <div class="container">
             <div class="row">
-                <span class="col-md-6">Copyright &copy; @DateTime.Now.Year <a href="/" itemprop="url name">@Site.Copyright</a></span>
                 <nav class="col-md-6">
-                    <ul>
+                    <ul class="left-nav">
+                        <li><a href="/page/klub-ljubiteljev-umetnosti" title="Klub ljubiteljev umetnosti">Klub ljubiteljev umetnosti</a></li>
+                    </ul>
+                </nav>
+                <nav class="col-md-6">
+                    <ul class="right-nav">
                         <li><a href="/page/pravno-obvestilo">Pravno obvestilo</a></li>
                     </ul>
                 </nav>
             </div>
+            <div class="row">
+                <p class="col-md-12 anart-copyright">
+                    Copyright &copy; @DateTime.Now.Year <a href="/" itemprop="url name">@Site.Copyright</a>,
+                    Koprska ulica 94, 1000 Ljubljana, Slovenija, e-pošta: <a href="mailto:info@anart.si">info@anart.si</a>,
+                    tel: 064 258 831, fb: <a href="https://www.facebook.com/AnaArtGalerija/" style="">Anart Galerija</a>
+                </p>
+            </div>
         </div>
+
     </footer>
     <script type="text/javascript" src="@Site.FingerPrint("/Scripts/jquery-1.9.1.min.js")"></script>
     <script type="text/javascript" src="@Site.FingerPrint("/Scripts/bootstrap.min.js")"></script>

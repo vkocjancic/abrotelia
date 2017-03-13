@@ -6,6 +6,7 @@
 @color-border-nye-invisible: #ddd;
 @color-white: #fff;
 @color-light: #c7c6c6;
+@font-size-copyright: 0.9em;
 
 body {
     color: @color-text;
@@ -156,20 +157,30 @@ article, .anart-row {
 
 .anart-footer {
     background-color: @color-dark;
-    padding: 10px 0 30px;
+    padding: 10px 0 10px;
 }
 
-.anart-footer, .anart-footer a { color: @color-white; }
-.anart-footer a:hover { text-decoration: underline; }
+.anart-footer, .anart-footer a { color: @color-light; text-decoration: underline; }
+.anart-footer a:hover { color: @color-white; }
 
 .anart-footer ul {
     list-style: none;
-    float: right;
+    float: left;
     margin-bottom: 0px;
+    padding: 0;
 }
 
-.anart-footer ul li {
+.anart-footer ul.right-nav { float: right; }
+
+.anart-footer ul.right-nav li {
     float: left;
+    padding-left: 10px;
+}
+
+.anart-copyright {
+    font-size: @font-size-copyright;
+    margin: 15px 0 0;
+    text-align: center;
 }
 
 .btn-outline {

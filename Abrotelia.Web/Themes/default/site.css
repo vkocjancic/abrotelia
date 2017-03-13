@@ -127,22 +127,33 @@ article,
 }
 .anart-footer {
   background-color: #353132;
-  padding: 10px 0 30px;
+  padding: 10px 0 10px;
 }
 .anart-footer,
 .anart-footer a {
-  color: #fff;
+  color: #c7c6c6;
+  text-decoration: underline;
 }
 .anart-footer a:hover {
-  text-decoration: underline;
+  color: #fff;
 }
 .anart-footer ul {
   list-style: none;
-  float: right;
-  margin-bottom: 0px;
-}
-.anart-footer ul li {
   float: left;
+  margin-bottom: 0px;
+  padding: 0;
+}
+.anart-footer ul.right-nav {
+  float: right;
+}
+.anart-footer ul.right-nav li {
+  float: left;
+  padding-left: 10px;
+}
+.anart-copyright {
+  font-size: 0.9em;
+  margin: 15px 0 0;
+  text-align: center;
 }
 .btn-outline {
   background-color: transparent;
