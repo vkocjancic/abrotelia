@@ -1,0 +1,33 @@
+﻿@using Abrotelia.Web.Code.ViewModels
+
+@helper DisplayIndex(VMAuthors vmAuthors)
+{
+var lastLetter = '\0';
+var currentLetter = '\0';
+var maxColumns = 4;
+var authors = vmAuthors.Items.OrderBy(a => a.Surname).ThenBy(a => a.FullName).ToArray();
+var authorsPerColumn = (authors.Length + maxColumns -1) / maxColumns;
+var gridSize = 12 / maxColumns;
+    <div class="container">
+        <div class="row">
+
+            @for (var column = 0; column < maxColumns; column++)
+            {
+                var offset = (column * authorsPerColumn);
+                <div class="col-sm-@gridSize">
+                    @for (var cnAuthor = 0; cnAuthor < Math.Min(authorsPerColumn, authors.Length - offset); cnAuthor++)
+                    {
+                        var author = authors[cnAuthor + offset];
+                        currentLetter = author.Surname[0];
+                        if (currentLetter != lastLetter)
+                        {
+                            <h4>@currentLetter</h4>
+                            lastLetter = currentLetter;
+                        }
+                        <p class="anart-author-link"><a href="/avtor/@author.PermaLink/@author.Id" itemprop="author">@author.FullName</a></p>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}
