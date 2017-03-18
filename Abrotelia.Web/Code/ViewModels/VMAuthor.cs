@@ -15,6 +15,18 @@ namespace Abrotelia.Web.Code.ViewModels
         public string Description { get; set; }
         public byte[] Image { get; set; }
         public string PermaLink { get; set; }
+        public string Surname {
+            get
+            {
+                var nameTokens = FullName.Split(' ');
+                var surname = nameTokens[nameTokens.Length - 1];
+                if (char.IsLower(surname[0]))
+                {
+                    surname = nameTokens[nameTokens.Length - 2];
+                }
+                return surname;
+            }
+        }
 
         #endregion
 

@@ -111,9 +111,10 @@ namespace Abrotelia.Web.Code.Common
                     foreach (var page in pages.Items)
                     { 
                         menuItems.Add(new VMMenuItem() { Uri=$"/page/{page.PermaLink}", Title=page.HeaderMenuTitle });
-                        if (cnPosition++ == 0)
+                        if (0 == cnPosition++)
                         {
                             menuItems.Add(new VMMenuItem() { Uri = "/galerija/", Title = "Galerija" });
+                            menuItems.Add(new VMMenuItem() { Uri = "/umetniki/", Title = "Umetniki" });
                         }
                     }
                     HttpRuntime.Cache.Insert(cacheKey, menuItems.AsEnumerable());
@@ -131,8 +132,13 @@ namespace Abrotelia.Web.Code.Common
                 {
                     var pages = VMPages.LoadFooterMenu(new PagesRepository());
                     var menuItems = new List<VMMenuItem>();
+                    var cnPosition = 0;
                     foreach (var page in pages.Items)
                     {
+                        if (0 == cnPosition++)
+                        {
+                            menuItems.Add(new VMMenuItem() { Uri = "/umetniki/", Title = "Umetniki", Group = "foot_left" });
+                        }
                         menuItems.Add(new VMMenuItem() { Uri = $"/page/{page.PermaLink}", Title = page.FooterMenuTitle, Group = page.FooterCategory });
                     }
                     HttpRuntime.Cache.Insert(cacheKey, menuItems.AsEnumerable());

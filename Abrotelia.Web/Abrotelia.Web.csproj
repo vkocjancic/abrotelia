@@ -130,6 +130,7 @@
     <Content Include="Admin\GalleryItemsFeatured.cshtml" />
     <Content Include="App_Code\galleryHelpers.cshtml" />
     <Content Include="Admin\NewsSubscriptions.cshtml" />
+    <Content Include="App_Code\authorHelpers.cshtml" />
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">

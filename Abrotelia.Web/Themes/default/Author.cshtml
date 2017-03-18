@@ -1,21 +1,40 @@
 ﻿@using Abrotelia.Web.Code.Repository
 @using Abrotelia.Web.Code.ViewModels
-@{ 
+@{
     var author = Model as VMAuthor;
-    var vmResults = VMGalleryItems.LoadByAuthor(author, new GalleryItemsRepository());
+    VMGalleryItems vmResults = null;
+    VMAuthors vmAuthors = null;
+    if (null != author)
+    {
+        vmResults = VMGalleryItems.LoadByAuthor(author, new GalleryItemsRepository());
+    }
+    else
+    {
+        vmAuthors = VMAuthors.Load(new AuthorsRepository());
+    }
 }
 <div class="row">
     <div class="container">
-        @galleryHelpers.Search(author.FullName)
-        <div id="authorDetails" itemscope itemtype="http://schema.org/Product">
-            <h3 itemprop="author">@author.FullName</h3>
-            <article itemprop="description">
-                @Html.Raw(HttpUtility.HtmlDecode(author.Description))
-            </article>
-        </div>
-        <div id="itemsList" itemprop="offers">
-            <h3>Avtorjeva dela</h3>
-            @galleryHelpers.DisplayAllItems(vmResults)
-        </div>
+        @galleryHelpers.Search((null == author) ? "" : author.FullName)
+        @if (null != vmResults)
+        {
+            <div id="authorDetails" itemscope itemtype="http://schema.org/Product">
+                <h3 itemprop="author">@author.FullName</h3>
+                <article itemprop="description">
+                    @Html.Raw(HttpUtility.HtmlDecode(author.Description))
+                </article>
+            </div>
+            <div id="itemsList" itemprop="offers">
+                <h3>Avtorjeva dela</h3>
+                @galleryHelpers.DisplayAllItems(vmResults)
+            </div>
+        }
+        @if (null != vmAuthors)
+        {
+            <div itemscope itemtype="http://schema.org/Person">
+                <h3>Umetniki</h3>
+                @authorHelpers.DisplayIndex(vmAuthors)
+            </div>
+        }
     </div>
 </div>
