@@ -10,6 +10,8 @@ namespace Abrotelia.Web.Code.Repository
     public interface IPagesRepository : IRepository<VMPage>
     {
         VMPage GetBySlug(string slug);
+        IList<VMPage> GetAllForHeaderMenu();
+        IList<VMPage> GetAllForFooterMenu();
 
     }
 }

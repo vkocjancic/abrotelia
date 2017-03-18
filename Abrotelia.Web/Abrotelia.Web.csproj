@@ -212,6 +212,7 @@
     <Compile Include="Code\ViewModels\VMGalleryItem.cs" />
     <Compile Include="Code\ViewModels\VMGalleryItems.cs" />
     <Compile Include="Code\ViewModels\VMImage.cs" />
+    <Compile Include="Code\ViewModels\VMMenuItem.cs" />
     <Compile Include="Code\ViewModels\VMNewsSubscription.cs" />
     <Compile Include="Code\ViewModels\VMNewsSubscriptions.cs" />
     <Compile Include="Code\ViewModels\VMPage.cs" />

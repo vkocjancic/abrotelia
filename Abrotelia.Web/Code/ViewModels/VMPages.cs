@@ -18,6 +18,20 @@ namespace Abrotelia.Web.Code.ViewModels
             return model;
         }
 
+        public static VMPages LoadHeaderMenu(IPagesRepository repository)
+        {
+            var model = new VMPages();
+            model.Items = repository.GetAllForHeaderMenu();
+            return model;
+        }
+
+        public static VMPages LoadFooterMenu(IPagesRepository repository)
+        {
+            var model = new VMPages();
+            model.Items = repository.GetAllForFooterMenu();
+            return model;
+        }
+
         #endregion
 
     }

@@ -41,6 +41,36 @@ namespace Abrotelia.Web.Code.Repository
             }
         }
 
+        public IList<VMPage> GetAllForHeaderMenu()
+        {
+            using (var db = new LiteDatabase(DatabaseName))
+            {
+                var model = new List<VMPage>();
+                foreach (var page in db.GetCollection<PMPage>("pages")
+                    .Find(Query.Where("Header.Category", c => !string.IsNullOrEmpty(c.AsString)))
+                    .OrderBy(p => p.Header.Priority))
+                {
+                    model.Add(Adapter.ToViewModel(page));
+                }
+                return model;
+            }
+        }
+
+        public IList<VMPage> GetAllForFooterMenu()
+        {
+            using (var db = new LiteDatabase(DatabaseName))
+            {
+                var model = new List<VMPage>();
+                foreach (var page in db.GetCollection<PMPage>("pages")
+                    .Find(Query.Where("Footer.Category", c => !string.IsNullOrEmpty(c.AsString)))
+                    .OrderBy(p => p.Header.Priority))
+                {
+                    model.Add(Adapter.ToViewModel(page));
+                }
+                return model;
+            }
+        }
+
         public VMPage GetById(string id)
         {
             using (var db = new LiteDatabase(DatabaseName))

@@ -98,6 +98,49 @@ namespace Abrotelia.Web.Code.Common
             }
         }
 
+        public static IEnumerable<VMMenuItem> HeaderMenuItems
+        {
+            get
+            {
+                var cacheKey = "headerMenuItems";
+                if (null == HttpRuntime.Cache[cacheKey])
+                {
+                    var pages = VMPages.LoadHeaderMenu(new PagesRepository());
+                    var menuItems = new List<VMMenuItem>();
+                    var cnPosition = 0;
+                    foreach (var page in pages.Items)
+                    { 
+                        menuItems.Add(new VMMenuItem() { Uri=$"/page/{page.PermaLink}", Title=page.HeaderMenuTitle });
+                        if (cnPosition++ == 0)
+                        {
+                            menuItems.Add(new VMMenuItem() { Uri = "/galerija/", Title = "Galerija" });
+                        }
+                    }
+                    HttpRuntime.Cache.Insert(cacheKey, menuItems.AsEnumerable());
+                }
+                return HttpRuntime.Cache[cacheKey] as IEnumerable<VMMenuItem>;
+            }
+        }
+
+        public static IEnumerable<VMMenuItem> FooterMenuItems
+        {
+            get
+            {
+                var cacheKey = "footerMenuItems";
+                if (null == HttpRuntime.Cache[cacheKey])
+                {
+                    var pages = VMPages.LoadFooterMenu(new PagesRepository());
+                    var menuItems = new List<VMMenuItem>();
+                    foreach (var page in pages.Items)
+                    {
+                        menuItems.Add(new VMMenuItem() { Uri = $"/page/{page.PermaLink}", Title = page.FooterMenuTitle, Group = page.FooterCategory });
+                    }
+                    HttpRuntime.Cache.Insert(cacheKey, menuItems.AsEnumerable());
+                }
+                return HttpRuntime.Cache[cacheKey] as IEnumerable<VMMenuItem>;
+            }
+        }
+
         #endregion
 
         #region Constructors

@@ -37,11 +37,10 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse navbar-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="/page/svetovanje-in-cenitve" title="Svetovanje in cenitve">Svetovanje in cenitve</a></li>
-                            <li><a href="/galerija/" title="Galerija">Galerija</a></li>
-                            <li><a href="/page/trznica" title="Tržnica">Tržnica</a></li>
-                            <li><a href="/page/klub-ljubiteljev-umetnosti" title="Klub ljubiteljev umetnosti">Klub</a></li>
-                            <li><a href="/page/kontakt" title="Kontakt">Kontakt</a></li>
+                            @foreach (var menuItem in Site.HeaderMenuItems)
+                            {
+                                <li><a href="@menuItem.Uri" title="@menuItem.Title">@menuItem.Title</a></li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -58,12 +57,20 @@
             <div class="row">
                 <nav class="col-md-6">
                     <ul class="left-nav">
-                        <li><a href="/page/klub-ljubiteljev-umetnosti" title="Klub ljubiteljev umetnosti">Klub ljubiteljev umetnosti</a></li>
+                        @foreach (var menuItem in Site.FooterMenuItems.Where(item => "foot_left" == item.Group))
+                        {
+                            <li><a href="@menuItem.Uri" title="@menuItem.Title">@menuItem.Title</a></li>
+                        }
+                        @*<li><a href="/page/klub-ljubiteljev-umetnosti" title="Klub ljubiteljev umetnosti">Klub ljubiteljev umetnosti</a></li>*@
                     </ul>
                 </nav>
                 <nav class="col-md-6">
                     <ul class="right-nav">
-                        <li><a href="/page/pravno-obvestilo">Pravno obvestilo</a></li>
+                        @foreach (var menuItem in Site.FooterMenuItems.Where(item => "foot_right" == item.Group))
+                        {
+                            <li><a href="@menuItem.Uri" title="@menuItem.Title">@menuItem.Title</a></li>
+                        }
+                        @*<li><a href="/page/pravno-obvestilo">Pravno obvestilo</a></li>*@
                     </ul>
                 </nav>
             </div>

@@ -31,12 +31,30 @@
             <div id="editor" class="form-field">@Html.Raw(HttpUtility.HtmlDecode(vm.Content))</div>
             <input type="hidden" name="pageContent" />
         </div>
-        <div itemprop="category">
-            <label for="headerCategory">Kategorija v glavi:</label>
-            <input type="text" name="headerCategory" value="@vm.HeaderCategory" />
+        <h2>Glava</h2>
+        <div itemprop="text">
+            <label for="headerMenuTitle">Naslov v meniju:</label>
+            <input type="text" name="headerMenuTitle" value="@vm.HeaderMenuTitle" />
+        </div>
+        <div itemprop="ratingValue">
+            <label for="headerMenuPriority">Pozicija v meniju:</label>
+            <input type="number" min="1" max="20" step="1" name="headerMenuPriority" value="@vm.HeaderMenuPriority" />
         </div>
         <div itemprop="category">
-            <label for="footerCategory">Kategorija v nogi:</label>
+            <label for="headerCategory">Kategorija:</label>
+            <input type="text" name="headerCategory" value="@vm.HeaderCategory" />
+        </div>
+        <h2>Noga</h2>       
+        <div itemprop="text">
+            <label for="footerMenuTitle">Naslov v meniju:</label>
+            <input type="text" name="footerMenuTitle" value="@vm.FooterMenuTitle" />
+        </div>
+        <div itemprop="ratingValue">
+            <label for="footerMenuPriority">Pozicija v meniju:</label>
+            <input type="number" min="1" max="20" step="1" name="footerMenuPriority" value="@vm.FooterMenuPriority" />
+        </div>
+        <div itemprop="category">
+            <label for="footerCategory">Kategorija:</label>
             <input type="text" name="footerCategory" value="@vm.FooterCategory" />
         </div>
         <button type="submit" class="btn btn-primary btn-success">

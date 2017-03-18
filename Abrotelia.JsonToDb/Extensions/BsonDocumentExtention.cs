@@ -20,8 +20,8 @@ namespace Abrotelia.JsonToDb.Extensions
             {
                 Author = document["Author"].AsString,
                 Content = document["Content"].AsString,
-                FooterCategory = document["FooterCategory"].AsString,
-                HeaderCategory = document["HeaderCategory"].AsString,
+                //FooterCategory = document["FooterCategory"].AsString,
+                //HeaderCategory = document["HeaderCategory"].AsString,
                 Id = document["_id"].AsString,
                 PageStatus = (PageStatus)Enum.Parse(typeof(PageStatus), document["PageStatus"].AsString),
                 PermaLink = document["PermaLink"].AsString,

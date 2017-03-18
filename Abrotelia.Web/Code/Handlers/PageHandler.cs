@@ -41,7 +41,11 @@ namespace Abrotelia.Web.Code.Handlers
                         context.Request["title"],
                         context.Request["content"],
                         context.Request["headerCategory"],
+                        context.Request["headerMenuPriority"],
+                        context.Request["headerMenuTitle"],
                         context.Request["footerCategory"],
+                        context.Request["footerMenuPriority"],
+                        context.Request["footerMenuTitle"],
                         context.User.Identity.Name,
                         new PagesRepository());
                     m_log.Info("Page saved");
@@ -69,32 +73,42 @@ namespace Abrotelia.Web.Code.Handlers
             repository.DeleteById(id);
         }
 
-        private void EditPage(string id, string title, string content, string headerCategory, string footerCategory, string user, IPagesRepository repository)
+        private void EditPage(string id, string title, string content, string headerCategory, string headerMenuPriority, string headerMenuTitle,
+            string footerCategory, string footerMenuPriority, string footerMenuTitle, string user, IPagesRepository repository)
         {
             var page = repository.GetById(id);
             var isNew = true;
+            var footerPriority = 0;
+            var headerPriority = 0;
+            int.TryParse(footerMenuPriority, out footerPriority);
+            int.TryParse(headerMenuPriority, out headerPriority);
             if (null == page)
             {
                 page = new VMPage()
                 {
                     Id = Guid.NewGuid().ToString(),
                     Author = user,
-                    Content = content,
-                    FooterCategory = footerCategory,
-                    HeaderCategory = headerCategory,
                     PageStatus = PageStatus.Published,
-                    Title = title,
-                    Updated = DateTime.Now
                 };
             }
             else
             {
-                isNew = false;
-                page.Title = title;
-                page.Content = content;
-                page.FooterCategory = footerCategory;
-                page.HeaderCategory = headerCategory;
-                page.Updated = DateTime.Now;
+                isNew = false;  
+            }
+            page.FooterCategory = footerCategory;
+            page.FooterMenuTitle = footerMenuTitle;
+            page.HeaderCategory = headerCategory;
+            page.HeaderMenuTitle = headerMenuTitle;
+            page.Content = content;
+            page.Title = title;
+            page.Updated = DateTime.Now;
+            if (0 != footerPriority)
+            {
+                page.FooterMenuPriority = footerPriority;
+            }
+            if (0 != headerPriority)
+            {
+                page.HeaderMenuPriority = headerPriority;
             }
             HttpContext.Current.Response.Write("/Admin/Pages.cshtml");
             page.Save(repository, isNew);

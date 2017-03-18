@@ -14,8 +14,13 @@ namespace Abrotelia.Web.Code.ViewModels
 
         public string Content { get; set; }
         public string FooterCategory { get; set; }
+        public string FooterMenuTitle { get; set; }
+        public int? FooterMenuPriority { get; set; }
         public string HeaderCategory { get; set; }
+        public string HeaderMenuTitle { get; set; }
+        public int? HeaderMenuPriority { get; set; }
         public PageStatus PageStatus { get; set; }
+        public string PermaLink { get; set; }
         public string Title { get; set; }
 
         #endregion

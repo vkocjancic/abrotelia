@@ -68,7 +68,11 @@
             title: $("[name='pageHeader']").val(),
             content: content,
             footerCategory: $("[name='footerCategory']").val(),
+            footerMenuPriority: $("[name='footerMenuPriority']").val(),
+            footerMenuTitle: $("[name='footerMenuTitle']").val(),
             headerCategory: $("[name='headerCategory']").val(),
+            headerMenuPriority: $("[name='headerMenuPriority']").val(),
+            headerMenuTitle: $("[name='headerMenuTitle']").val(),
             __RequestVerificationToken: document.querySelector("input[name=__RequestVerificationToken]").getAttribute("value")
         })
         .success(function (data) {
