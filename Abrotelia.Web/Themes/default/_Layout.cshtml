@@ -39,7 +39,8 @@
                         <ul class="nav navbar-nav">
                             @foreach (var menuItem in Site.HeaderMenuItems)
                             {
-                                <li><a href="@menuItem.Uri" title="@menuItem.Title">@menuItem.Title</a></li>
+                                var menuItemClass = (Request.RawUrl.Contains(menuItem.Uri)) ? "active" : "";
+                                <li class="@menuItemClass"><a href="@menuItem.Uri" title="@menuItem.Title">@menuItem.Title</a></li>
                             }
                         </ul>
                     </div>

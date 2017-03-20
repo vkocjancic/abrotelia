@@ -13,6 +13,9 @@ article,
 .anart-navbar a {
   color: #231f20;
 }
+.anart-navbar .active a {
+  background-color: #eee;
+}
 .anart-navbar .navbar-toggle {
   background-color: #fff;
   border-color: #353132;
