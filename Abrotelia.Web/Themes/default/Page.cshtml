@@ -1,4 +1,8 @@
-﻿<div class="container">
+﻿@using Abrotelia.Web.Code.Common;
+@{ 
+    Site.ImageCustom = null;
+}
+<div class="container">
     <article data-id="@Model.Id" itemscope itemtype="http://schema.org/WebPage" itemprop="articleBody">
         <header itemprop="headline name">
             <h1>@Model.Title</h1>

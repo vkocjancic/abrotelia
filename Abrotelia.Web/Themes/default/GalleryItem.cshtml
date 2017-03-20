@@ -1,7 +1,9 @@
-﻿@using Abrotelia.Web.Code.Repository
+﻿@using Abrotelia.Web.Code.Common
+@using Abrotelia.Web.Code.Repository
 @using Abrotelia.Web.Code.ViewModels
 @{
     var item = Model as VMGalleryItem;
+    Site.ImageCustom = $"/images/normal_{item.ImageId}.{((null == item.ImageExtension) ? "jpg" : item.ImageExtension)}";
     var vmResults = VMGalleryItems.LoadByAuthor(item.ItemAuthorId, new GalleryItemsRepository(), new AuthorsRepository());
     var itemToRemove = vmResults.Items.FirstOrDefault(i => i.Id == item.Id);
     if (null != itemToRemove)

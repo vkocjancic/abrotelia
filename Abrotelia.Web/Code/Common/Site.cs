@@ -19,9 +19,18 @@ namespace Abrotelia.Web.Code.Common
         public static string Copyright { get; private set; }
         public static string Description { get; private set; }
         public static string Image { get; private set; }
+        public static string ImageCustom { get; set; }
         public static string MetaDescription { get; private set; }
         public static string Title { get; private set; }
         public static string Theme { get; private set; }
+
+        public static string ImageDisplay
+        {
+            get
+            {
+                return ImageCustom ?? Image;
+            }
+        }
 
         public static bool IsAuthorPage
         {
