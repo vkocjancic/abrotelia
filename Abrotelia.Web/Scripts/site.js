@@ -25,7 +25,12 @@
                 showMessage(result, true, "Prijava je bila uspešna");
             })
             .fail(function (data) {
-                showMessage(result, false, "Prišlo je do napake. Strežnik je javil: " + data.status + " " + data.statusText);
+                if ("409" == data.status) {
+                    showMessage(result, true, "Prijava je bila uspešna");
+                }
+                else {
+                    showMessage(result, false, "Prišlo je do napake. Strežnik je javil: " + data.status + " " + data.statusText);
+                }
             });
         },
 

@@ -38,6 +38,11 @@ namespace Abrotelia.Web.Code.Handlers
                     m_log.Info($"Subscription deleted for {context.Request.UserHostAddress}");
                 }
             }
+            catch (HttpException ex)
+            {
+                m_log.Warn(ex, $"{ex.Message} {ex.StackTrace}");
+                throw ex;
+            }
             catch (Exception ex)
             {
                 m_log.Info($"Error occured handling request for {context.Request.UserHostAddress}");
