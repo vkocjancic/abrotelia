@@ -72,7 +72,8 @@ namespace Abrotelia.Web.Code.Repository
             using (var db = new LiteDatabase(DatabaseName))
             {
                 var model = new List<VMAuthor>();
-                foreach (var author in db.GetCollection<PMAuthor>("authors").Find(Query.Contains("FullName", query)))
+                foreach (var author in db.GetCollection<PMAuthor>("authors").Find(
+                    Query.Where("FullName", fullName => fullName.AsString.IndexOf(query, System.StringComparison.OrdinalIgnoreCase) >= 0)))
                 {
                     model.Add(Adapter.ToViewModel(author));
                 }
@@ -86,7 +87,7 @@ namespace Abrotelia.Web.Code.Repository
             {
                 var model = new List<VMAuthor>();
                 foreach (var author in db.GetCollection<PMAuthor>("authors").Find(
-                    Query.Contains("FullName", query), 
+                    Query.Where("FullName", fullName => fullName.AsString.IndexOf(query, System.StringComparison.OrdinalIgnoreCase) >= 0), 
                     limit: 10))
                 {
                     model.Add(Adapter.ToViewModel(author));

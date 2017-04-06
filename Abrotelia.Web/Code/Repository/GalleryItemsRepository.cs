@@ -189,7 +189,7 @@ namespace Abrotelia.Web.Code.Repository
                 foreach (var item in db.GetCollection<PMGalleryItem>("galleryItems").Find(
                     Query.Or(
                         Query.Or(
-                            Query.Contains("Title", query),
+                            Query.Where("Title", title => title.AsString.IndexOf(query, System.StringComparison.OrdinalIgnoreCase) >= 0),
                             Query.EQ("Produced", year)
                         ),
                         Query.Or(
@@ -219,7 +219,7 @@ namespace Abrotelia.Web.Code.Repository
                 int.TryParse(query, out year);
                 foreach (var item in db.GetCollection<PMGalleryItem>("galleryItems").Find(
                     Query.Or(
-                        Query.Contains("Title", query),
+                        Query.Where("Title", title => title.AsString.IndexOf(query, System.StringComparison.OrdinalIgnoreCase) >= 0),
                         Query.EQ("Produced", year)
                     )
                     , limit: 10))
