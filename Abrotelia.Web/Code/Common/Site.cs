@@ -23,6 +23,7 @@ namespace Abrotelia.Web.Code.Common
         public static string MetaDescription { get; private set; }
         public static string Title { get; private set; }
         public static string Theme { get; private set; }
+        public static string UseGoogleAnalytics { get; private set; }
 
         public static string ImageDisplay
         {
@@ -132,6 +133,15 @@ namespace Abrotelia.Web.Code.Common
             }
         }
 
+        public static bool AreCookiesEnabled
+        {
+            get
+            {
+                var cookieBar = HttpContext.Current.Request.Cookies.Get("cookiebar");
+                return ("true" == UseGoogleAnalytics) && (null != cookieBar) && ("CookieAllowed" == cookieBar.Value);
+            }
+        }
+
         public static IEnumerable<VMMenuItem> FooterMenuItems
         {
             get
@@ -168,6 +178,7 @@ namespace Abrotelia.Web.Code.Common
             MetaDescription = ConfigurationManager.AppSettings.Get("site:metadescription");
             Theme = ConfigurationManager.AppSettings.Get("site:theme");
             Title = ConfigurationManager.AppSettings.Get("site:title");
+            UseGoogleAnalytics = ConfigurationManager.AppSettings.Get("site:useGA");
         }
 
         #endregion
