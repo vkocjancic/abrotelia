@@ -24,6 +24,7 @@ namespace Abrotelia.Web.Code.Common
         public static string Title { get; private set; }
         public static string Theme { get; private set; }
         public static string UseGoogleAnalytics { get; private set; }
+        public static string GoogleAnalyticsTrackerId { get; private set; }
 
         public static string ImageDisplay
         {
@@ -179,6 +180,7 @@ namespace Abrotelia.Web.Code.Common
             Theme = ConfigurationManager.AppSettings.Get("site:theme");
             Title = ConfigurationManager.AppSettings.Get("site:title");
             UseGoogleAnalytics = ConfigurationManager.AppSettings.Get("site:useGA");
+            GoogleAnalyticsTrackerId = ConfigurationManager.AppSettings.Get("site:GATrackerId");
         }
 
         #endregion
