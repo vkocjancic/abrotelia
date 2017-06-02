@@ -25,6 +25,7 @@ namespace Abrotelia.Web.Code.Common
         public static string Theme { get; private set; }
         public static string UseGoogleAnalytics { get; private set; }
         public static string GoogleAnalyticsTrackerId { get; private set; }
+        public static string Email { get; private set; }
 
         public static string ImageDisplay
         {
@@ -175,6 +176,7 @@ namespace Abrotelia.Web.Code.Common
         {
             Copyright = ConfigurationManager.AppSettings.Get("site:copyright");
             Description = ConfigurationManager.AppSettings.Get("site:description");
+            Email = ConfigurationManager.AppSettings.Get("site:email");
             Image = ConfigurationManager.AppSettings.Get("site:image");
             MetaDescription = ConfigurationManager.AppSettings.Get("site:metadescription");
             Theme = ConfigurationManager.AppSettings.Get("site:theme");

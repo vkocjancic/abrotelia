@@ -128,6 +128,14 @@ article,
   text-align: right;
   width: 100%;
 }
+.anart-buy {
+  margin-top: 20px;
+}
+.anart-buy .btn {
+  font-size: 110%;
+  font-weight: bold;
+  text-align: left;
+}
 .anart-footer {
   background-color: #353132;
   padding: 10px 0 10px;
