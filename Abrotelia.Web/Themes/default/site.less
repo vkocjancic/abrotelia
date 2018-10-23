@@ -18,23 +18,25 @@ article, .anart-row {
 }
 
 .anart-navbar {
-    margin-bottom: 0;
-    padding-bottom: 0;
+    margin: 0;
+    padding: 0;
+
+    a {
+        color: @color-text;
+        padding: .5rem 0;
+    }
+
+    .active a, a.nav-link:hover {
+        background-color: #eee;
+    }
+
+    .navbar-toggler {
+        color: @color-dark;
+    }
 }
 
-.anart-navbar a {
-    color: @color-text;
-}
-
-.anart-navbar .active a { background-color: #eee; }
-
-.anart-navbar .navbar-toggle {
-    background-color: @color-white;
-    border-color: @color-dark;
-}
-
-.anart-navbar .navbar-toggle .icon-bar {
-    background-color: @color-dark;
+.anart-navbar.navbar-expand-lg .navbar-nav a.nav-link {
+    padding: 1rem;
 }
 
 .anart-main {
@@ -171,21 +173,34 @@ article, .anart-row {
     padding: 10px 0 10px;
 }
 
-.anart-footer, .anart-footer a { color: @color-light; text-decoration: underline; }
-.anart-footer a:hover { color: @color-white; }
+.anart-footer {
+    color: @color-light;
+    font-size: 0.8rem;
 
-.anart-footer ul {
-    list-style: none;
-    float: left;
-    margin-bottom: 0px;
-    padding: 0;
-}
+    a {
+        color: @color-light;
+        text-decoration: underline;
+    }
 
-.anart-footer ul.right-nav { float: right; }
+    a:hover {
+        color: @color-white;
+    }
 
-.anart-footer ul.right-nav li {
-    float: left;
-    padding-left: 10px;
+    ul {
+        list-style: none;
+        float: left;
+        margin-bottom: 0px;
+        padding: 0;
+    }
+
+    ul.right-nav {
+        float: right;
+    }
+
+    ul.right-nav li {
+        float: left;
+        padding-left: 10px;
+    }
 }
 
 .anart-copyright {

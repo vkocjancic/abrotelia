@@ -6,17 +6,17 @@ if ((null != items) && (items.Items.Count > 0))
 {
         <div class="container">
             <div class="row">
-                <div class="col-sm-9">
+                <div class="col col-sm-9">
                     <h3>
                         @title
                     </h3>
                 </div>
-                <div class="col-sm-3">
+                <div class="col col-sm-3">
                     @if (items.Items.Count > maxItemsPerGroup)
                     {
                         <div class="controls pull-right hidden-xs">
-                            <a class="left glyphicon glyphicon-chevron-left btn anart-btn" href="#carousel-@id"
-                               data-slide="prev"></a><a class="right glyphicon glyphicon-chevron-right btn anart-btn" href="#carousel-@id"
+                            <a class="left fa fa-chevron-left btn anart-btn" href="#carousel-@id"
+                               data-slide="prev"></a><a class="right fa fa-chevron-right btn anart-btn" href="#carousel-@id"
                                                         data-slide="next"></a>
                         </div>
                     }
@@ -27,8 +27,8 @@ if ((null != items) && (items.Items.Count > 0))
                     @for (var cnGroup = 0; cnGroup < items.Items.Count; cnGroup += maxItemsPerGroup)
                     {
                         var itemsInGroup = Math.Min(items.Items.Count - cnGroup, maxItemsPerGroup);
-                        <div class="item @((0 == cnGroup) ? "active" : "")">
-                            <div>
+                        <div class="carousel-item @((0 == cnGroup) ? "active" : "")">
+                            <div class="row">
                                 @for (var cnItem = 0; cnItem < itemsInGroup; cnItem++)
                                 {
                                     @GalleryItemTemplate(items.Items[cnGroup + cnItem])
@@ -55,7 +55,7 @@ if ((null != items) && (items.Items.Count > 0))
 
 @helper GalleryItemTemplate(VMGalleryItem item)
 {
-    <div class="col-sm-3">
+    <div class="col col-sm-3">
         <div class="col-item" itemscope itemtype="http://schema.org/Product">
             <a href="/delo/@item.PermaLink/@item.Id"><img src="/images/thumb_@item.ImageId.@((null == item.ImageExtension) ? "jpg" : item.ImageExtension)" alt="@item.Title" itemprop="image" /></a>
             <ul class="info">

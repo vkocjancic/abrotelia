@@ -7,21 +7,22 @@ article,
   margin-bottom: 30px;
 }
 .anart-navbar {
-  margin-bottom: 0;
-  padding-bottom: 0;
+  margin: 0;
+  padding: 0;
 }
 .anart-navbar a {
   color: #231f20;
+  padding: 0.5rem 0;
 }
-.anart-navbar .active a {
+.anart-navbar .active a,
+.anart-navbar a.nav-link:hover {
   background-color: #eee;
 }
-.anart-navbar .navbar-toggle {
-  background-color: #fff;
-  border-color: #353132;
+.anart-navbar .navbar-toggler {
+  color: #353132;
 }
-.anart-navbar .navbar-toggle .icon-bar {
-  background-color: #353132;
+.anart-navbar.navbar-expand-lg .navbar-nav a.nav-link {
+  padding: 1rem;
 }
 .anart-main {
   background-color: #353132;
@@ -140,7 +141,10 @@ article,
   background-color: #353132;
   padding: 10px 0 10px;
 }
-.anart-footer,
+.anart-footer {
+  color: #c7c6c6;
+  font-size: 0.8rem;
+}
 .anart-footer a {
   color: #c7c6c6;
   text-decoration: underline;

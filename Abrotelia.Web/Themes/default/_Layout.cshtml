@@ -16,38 +16,29 @@
     <meta property="og:url" content="@(Request.Url.Scheme +"://" + Request.Url.Authority + Request.RawUrl)" />
 
     <link href="@Site.FingerPrint("/Content/bootstrap.min.css")" rel="stylesheet" />
-    <link href="@Site.FingerPrint("/Content/bootstrap-theme.min.css")" rel="stylesheet" />
+    <link href="@Site.FingerPrint("/Content/bootstrap-reboot.min.css")" rel="stylesheet" />
     <link href="@Site.FingerPrint("/Content/font-awesome/css/font-awesome.min.css")" rel="stylesheet" />
     <link href="@Site.FingerPrint("/Themes/" + Site.Theme +"/site.min.css")" rel="stylesheet" />
     <link href="@Site.FingerPrint("/favicon.ico")" rel="shortcut icon" />
 </head>
 <body itemscope itemtype="http://schema.org/WebPage">
 
-    <header role="banner" class="navbar-wrapper">
-        <div class="container-fluid">
-            <nav class="anart-navbar navbar navbar-static-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed navbar-right" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/" title="@Site.Title">@Site.Title</a>
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse navbar-right">
-                        <ul class="nav navbar-nav">
-                            @foreach (var menuItem in Site.HeaderMenuItems)
-                            {
-                                var menuItemClass = (Request.RawUrl.Contains(menuItem.Uri)) ? "active" : "";
-                                <li class="@menuItemClass"><a href="@menuItem.Uri" title="@menuItem.Title">@menuItem.Title</a></li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
+    <header role="banner" class="container">
+        <nav class="anart-navbar navbar navbar-expand-lg">
+            <a class="navbar-brand" href="/" title="@Site.Title">@Site.Title</a>
+            <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    @foreach (var menuItem in Site.HeaderMenuItems)
+                    {
+                        var menuItemClass = (Request.RawUrl.Contains(menuItem.Uri)) ? "active" : "";
+                        <li class="nav-item @menuItemClass"><a href="@menuItem.Uri" title="@menuItem.Title" class="nav-link">@menuItem.Title</a></li>
+                    }
+                </ul>
+            </div>
+        </nav>
     </header>
 
     <div role="main">
@@ -57,7 +48,7 @@
     <footer role="contentinfo" itemscope itemtype="http://schema.org/Person" class="anart-footer">
         <div class="container">
             <div class="row">
-                <nav class="col-md-6">
+                <nav class="col col-md-6">
                     <ul class="left-nav">
                         @foreach (var menuItem in Site.FooterMenuItems.Where(item => "foot_left" == item.Group))
                         {
@@ -65,7 +56,7 @@
                         }
                     </ul>
                 </nav>
-                <nav class="col-md-6">
+                <nav class="col col-md-6">
                     <ul class="right-nav">
                         @foreach (var menuItem in Site.FooterMenuItems.Where(item => "foot_right" == item.Group))
                         {
@@ -75,7 +66,7 @@
                 </nav>
             </div>
             <div class="row">
-                <p class="col-md-12 anart-copyright">
+                <p class="col col-md-12 anart-copyright">
                     Copyright &copy; @DateTime.Now.Year <a href="/" itemprop="url name">@Site.Copyright</a>,
                     Koprska ulica 94, 1000 Ljubljana, Slovenija,
                     <i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;<a href="mailto:info@anart.si">info@anart.si</a>,
@@ -86,14 +77,15 @@
         </div>
 
     </footer>
-    <script type="text/javascript" src="@Site.FingerPrint("/Scripts/jquery-1.9.1.min.js")"></script>
+    <script type="text/javascript" src="@Site.FingerPrint("/Scripts/jquery-3.3.1.min.js")"></script>
+    <script type="text/javascript" src="@Site.FingerPrint("/Scripts/popper.min.js")"></script>
     <script type="text/javascript" src="@Site.FingerPrint("/Scripts/bootstrap.min.js")"></script>
     <script type="text/javascript" src="@Site.FingerPrint("/Scripts/bootstrap3-typeahead.min.js")"></script>
     <script type="text/javascript" src="@Site.FingerPrint("/Scripts/site.es5.min.js")"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/cookie-bar/1/cookiebar-latest.min.js?top=1&forceLang=sl&tracking=1&thirdparty=1&always=1&noGeoIp=1&refreshPage=1&remember=365&privacyPage=%2Fpage%2Fpravno-obvestilo"></script>
     @if (Site.AreCookiesEnabled)
     {
-    <script type="text/javascript">
+        <script type="text/javascript">
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
                 (i[r].q = i[r].q || []).push(arguments)
@@ -102,7 +94,7 @@
         })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
         ga('create', '@Site.GoogleAnalyticsTrackerId', 'auto');
         ga('send', 'pageview');
-    </script>
+        </script>
     }
 </body>
 </html>
