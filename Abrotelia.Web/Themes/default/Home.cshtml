@@ -4,13 +4,13 @@
 }
 <main id="content" role="banner" class="anart-main">
     <div class="container">
-        <div class="row">
-            <span class="anart-logo pull-left" itemprop="logo"></span>
+        @*<div class="row">*@
+            <span class="anart-logo" itemprop="logo"></span>
             <p class="lead" itemprop="headline">@Site.Description</p>
             <p class="lead last">
                 <a class="btn btn-outline-inverse btn-lg" href="/galerija/">Poglej v galerijo</a>
             </p>
-        </div>
+        @*</div>*@
     </div>
 </main>
 <article class="container" itemprop="articleBody">
@@ -56,19 +56,20 @@
 <article class="anart-news-subscription row" itemprop="articleBody">
     <div class="container">
         <div class="alert"></div>
-        <div class="thumbnail center well well-small text-center">
+        <div class="anart-news-content center text-center">
             <h2>Prijavite se na e-novice</h2>
             <p>E-novice vas bodo obveščale o tekočih dogodkih in novih likovnih delih.</p>
             <form id="subscriptionForm">
-                <div class="anart-newsletter input-group col-md-4 col-md-offset-4">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                    <input type="email" id="newsEmail" name="newsEmail" placeholder="Vaš naslov elektronske pošte">
+                <div class="anart-newsletter input-group row col col-sm-4 offset-4">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                    </div>
+                    <input class="form-control" type="email" id="newsEmail" name="newsEmail" placeholder="Vaš naslov elektronske pošte">
                 </div>
                 <br />
                 <button type="submit" value="" class="btn btn-large btn-outline-inverse btn-outline-filled">
                     Prijavite se zdaj!
                 </button>
-                @*@AntiForgery.GetHtml()*@
             </form>
         </div>
     </div>
