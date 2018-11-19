@@ -16,44 +16,41 @@
         @galleryHelpers.Search(item.Title)
         <div id="gallersItemDetails" class="anart-gallery-item" itemscope itemtype="http://schema.org/Product">
             <h3 itemprop="name">@item.ItemAuthorFullName - @item.Title</h3>
-            <div class="col-sm-12">
-                <div class="pull-right">
-                    <img src="/images/normal_@item.ImageId.@((null == item.ImageExtension) ? "jpg" : item.ImageExtension)"
-                         alt="@item.Title" itemprop="image" />
-                </div>
-                <article class="pull-left anart-gallery-item-details col-sm-5" itemprop="description">
-                    @Html.Raw(HttpUtility.HtmlDecode(item.Description))
-                    <ul class="info">
-                        <li>Avtor: <a href="/avtor/@item.ItemAuthorPermaLink/@item.ItemAuthorId" itemprop="author">@item.ItemAuthorFullName</a></li>
-                        @if (null == item.Produced)
-                        {
-                            <li itemprop="dateCreated">Letnica: ni podana</li>
-                        }
-                        else
-                        {
-                            <li>Letnica: <a href="/galerija/@item.Produced" itemprop="dateCreated">@item.Produced</a></li>
-                        }
-                        <li class="price" itemprop="price">Cena: @((null == item.Price) ? "" : item.Price.Value.ToString("C"))</li>
-                        <li itemprop="width">Velikost: @item.SizeDisplay</li>
-                        <li itemprop="genre">Tehnika: @item.TechniquesDisplay</li>
-                        @if (!string.IsNullOrEmpty(item.Era))
-                        {
-                        <li itemprop="startDate">Obdobje: @item.Era</li>
-                        }
-                    </ul>
-                    <p class="anart-btn anart-buy">
-                        <a href="mailto:@Site.Email?subject=Povpraševanje: @item.ItemAuthorFullName - @item.Title" 
-                           class="btn btn-lg btn-outline-inverse">Pošljite povpraševanje</a>
-                    </p>
-                </article>
+            <div class="pull-right">
+                <img src="/images/normal_@item.ImageId.@((null == item.ImageExtension) ? "jpg" : item.ImageExtension)"
+                        alt="@item.Title" itemprop="image" />
             </div>
+            <article class="pull-left anart-gallery-item-details" itemprop="description">
+                @Html.Raw(HttpUtility.HtmlDecode(item.Description))
+                <ul class="info">
+                    <li>Avtor: <a href="/avtor/@item.ItemAuthorPermaLink/@item.ItemAuthorId" itemprop="author">@item.ItemAuthorFullName</a></li>
+                    @if (null == item.Produced)
+                    {
+                        <li itemprop="dateCreated">Letnica: ni podana</li>
+                    }
+                    else
+                    {
+                        <li>Letnica: <a href="/galerija/@item.Produced" itemprop="dateCreated">@item.Produced</a></li>
+                    }
+                    <li class="price" itemprop="price">Cena: @((null == item.Price) ? "" : item.Price.Value.ToString("C"))</li>
+                    <li itemprop="width">Velikost: @item.SizeDisplay</li>
+                    <li itemprop="genre">Tehnika: @item.TechniquesDisplay</li>
+                    @if (!string.IsNullOrEmpty(item.Era))
+                    {
+                    <li itemprop="startDate">Obdobje: @item.Era</li>
+                    }
+                </ul>
+                <p class="anart-btn anart-buy">
+                    <a href="mailto:@Site.Email?subject=Povpraševanje: @item.ItemAuthorFullName - @item.Title" 
+                        class="btn btn-lg btn-outline-inverse">Pošljite povpraševanje</a>
+                </p>
+            </article>
             <div style="clear: both;"></div>
         </div>
         <div id="itemsList" class="anart-gallery-items-list" itemprop="offers">
             @if (0 < vmResults.Items.Count)
             {
-                <h3>Ostala avtorjeva dela</h3>
-                @galleryHelpers.DisplayAllItems(vmResults)
+                @galleryHelpers.DisplayAllItems(vmResults, "Ostala avtorjeva dela")
             }
         </div>
     </div>

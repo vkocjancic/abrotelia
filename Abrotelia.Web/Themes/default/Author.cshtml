@@ -27,8 +27,7 @@
                 </article>
             </div>
             <div id="itemsList" itemprop="offers">
-                <h3>Avtorjeva dela</h3>
-                @galleryHelpers.DisplayAllItems(vmResults)
+                @galleryHelpers.DisplayAllItems(vmResults, "Avtorjeva dela")
             </div>
         }
         @if (null != vmAuthors)
