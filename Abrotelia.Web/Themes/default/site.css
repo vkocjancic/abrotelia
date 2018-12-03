@@ -241,7 +241,13 @@ article,
 .anart-gallery-item-details li {
   font-size: 0.9em;
 }
-.col-item .title,
+.col-item li.title,
+.anart-gallery-item-details li.title {
+  font-size: 1em;
+}
+.col-item .title {
+  letter-spacing: 0.03em;
+}
 .col-item .price,
 .anart-gallery-item-details .price {
   font-weight: bold;
